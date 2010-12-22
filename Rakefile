@@ -4,47 +4,43 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "tronprint"
+    gem.name = 'tronprint'
     gem.summary = %Q{TODO: one-line summary of your gem}
     gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "dkastner@gmail.com"
-    gem.homepage = "http://github.com/dkastner/tronprint"
-    gem.authors = ["Derek Kastner"]
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_development_dependency "cucumber", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.email = 'dkastner@gmail.com'
+    gem.homepage = 'http://github.com/dkastner/tronprint'
+    gem.authors = ['Derek Kastner']
+    gem.add_development_dependency 'cucumber'
+    gem.add_development_dependency 'jeweler', '~> 1.4.0'
+    gem.add_development_dependency 'rake'
+    gem.add_development_dependency 'rspec', '~>2.0'
+    gem.add_dependency 'carbon', '~> 1.0.3'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
-end
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:examples)
 
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
+  RSpec::Core::RakeTask.new(:rcov) do |spec|
+    spec.rcov = true
+  end
+rescue LoadError
+  puts 'RSpec tasks unavailable'
 end
-
-task :spec => :check_dependencies
 
 begin
   require 'cucumber/rake/task'
   Cucumber::Rake::Task.new(:features)
-
-  task :features => :check_dependencies
 rescue LoadError
-  task :features do
-    abort "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
-  end
+  puts 'Cucumber not found, cucumber tasks not available'
 end
 
-task :default => :spec
+task :test => [:examples, :features]
+task :default => :test
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|

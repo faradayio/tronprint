@@ -1,0 +1,70 @@
+PATH
+  remote: .
+  specs:
+    tronprint (0.0.0)
+      carbon (~> 1.0.3)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activesupport (3.0.3)
+    blockenspiel (0.4.1)
+    builder (3.0.0)
+    carbon (1.0.3)
+      activesupport (>= 2.3.5)
+      activesupport (>= 2.3.5)
+      blockenspiel (>= 0.3.2)
+      blockenspiel (>= 0.3.2)
+      carbon
+      conversions (~> 1)
+      conversions (~> 1)
+      nap (>= 0.4)
+      nap (>= 0.4)
+      timeframe (>= 0.0.7)
+      timeframe (>= 0.0.7)
+    conversions (1.4.5)
+      activesupport (>= 2.3.4)
+    cucumber (0.10.0)
+      builder (>= 2.1.2)
+      diff-lcs (~> 1.1.2)
+      gherkin (~> 2.3.2)
+      json (~> 1.4.6)
+      term-ansicolor (~> 1.0.5)
+    diff-lcs (1.1.2)
+    gemcutter (0.6.1)
+    gherkin (2.3.2)
+      json (~> 1.4.6)
+      term-ansicolor (~> 1.0.5)
+    git (1.2.5)
+    jeweler (1.4.0)
+      gemcutter (>= 0.1.0)
+      git (>= 1.2.5)
+      rubyforge (>= 2.0.0)
+    json (1.4.6)
+    json_pure (1.4.6)
+    nap (0.4)
+    rake (0.8.7)
+    rspec (2.3.0)
+      rspec-core (~> 2.3.0)
+      rspec-expectations (~> 2.3.0)
+      rspec-mocks (~> 2.3.0)
+    rspec-core (2.3.1)
+    rspec-expectations (2.3.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.3.0)
+    rubyforge (2.0.4)
+      json_pure (>= 1.1.7)
+    term-ansicolor (1.0.5)
+    timeframe (0.0.8)
+      activesupport (>= 2.3.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  carbon (~> 1.0.3)
+  cucumber
+  jeweler (~> 1.4.0)
+  rake
+  rspec (~> 2.0)
+  tronprint!
