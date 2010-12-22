@@ -3,6 +3,7 @@ PATH
   specs:
     tronprint (0.0.0)
       carbon (~> 1.0.3)
+      i18n
 
 GEM
   remote: http://rubygems.org/
@@ -36,6 +37,7 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     git (1.2.5)
+    i18n (0.5.0)
     jeweler (1.4.0)
       gemcutter (>= 0.1.0)
       git (>= 1.2.5)
@@ -54,6 +56,7 @@ GEM
     rspec-mocks (2.3.0)
     rubyforge (2.0.4)
       json_pure (>= 1.1.7)
+    sandbox (0.1.1)
     term-ansicolor (1.0.5)
     timeframe (0.0.8)
       activesupport (>= 2.3.5)
@@ -64,7 +67,9 @@ PLATFORMS
 DEPENDENCIES
   carbon (~> 1.0.3)
   cucumber
+  i18n
   jeweler (~> 1.4.0)
   rake
   rspec (~> 2.0)
+  sandbox
   tronprint!

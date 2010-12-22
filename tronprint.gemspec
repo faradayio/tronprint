@@ -18,17 +18,22 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".rspec",
+    "Gemfile",
+    "Gemfile.lock",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "autotest/discover.rb",
     "features/step_definitions/tronprint_steps.rb",
     "features/support/env.rb",
     "features/tronprint.feature",
     "lib/tronprint.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb",
-    "spec/tronprint_spec.rb"
+    "spec/tronprint_spec.rb",
+    "tronprint.gemspec"
   ]
   s.homepage = %q{http://github.com/dkastner/tronprint}
   s.require_paths = ["lib"]
@@ -50,20 +55,26 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.0"])
+      s.add_development_dependency(%q<sandbox>, [">= 0"])
       s.add_runtime_dependency(%q<carbon>, ["~> 1.0.3"])
+      s.add_runtime_dependency(%q<i18n>, [">= 0"])
     else
+      s.add_dependency(%q<carbon>, ["~> 1.0.3"])
       s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<i18n>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<rspec>, ["~> 2.0"])
-      s.add_dependency(%q<carbon>, ["~> 1.0.3"])
+      s.add_dependency(%q<sandbox>, ["~> 2.0"])
     end
   else
+    s.add_dependency(%q<carbon>, ["~> 1.0.3"])
     s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<i18n>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<rspec>, ["~> 2.0"])
-    s.add_dependency(%q<carbon>, ["~> 1.0.3"])
+    s.add_dependency(%q<sandbox>, ["~> 2.0"])
   end
 end
 

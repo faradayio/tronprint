@@ -14,7 +14,9 @@ begin
     gem.add_development_dependency 'jeweler', '~> 1.4.0'
     gem.add_development_dependency 'rake'
     gem.add_development_dependency 'rspec', '~>2.0'
+    gem.add_development_dependency 'sandbox'
     gem.add_dependency 'carbon', '~> 1.0.3'
+    gem.add_dependency 'i18n'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
