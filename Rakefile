@@ -34,14 +34,7 @@ rescue LoadError
   puts 'RSpec tasks unavailable'
 end
 
-begin
-  require 'cucumber/rake/task'
-  Cucumber::Rake::Task.new(:features)
-rescue LoadError
-  puts 'Cucumber not found, cucumber tasks not available'
-end
-
-task :test => [:examples, :features]
+task :test => :examples
 task :default => :test
 
 require 'rake/rdoctask'
