@@ -11,7 +11,9 @@ module Tronprint
     end
 
     def data
-      File.exist?(file_path) ? YAML::load_file(file_path) : {}
+      return {} unless File.exist?(file_path)
+      saved_data = YAML::load_file(file_path)
+      saved_data.respond_to?(:[]) ? saved_data : {}
     end
 
     def file

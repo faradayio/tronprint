@@ -62,5 +62,23 @@ describe Tronprint::Aggregator do
       Tronprint::Aggregator.cached_data['foo'].should be_nil
     end
   end
+
+  describe '.data' do
+    before :each do
+      File.stub!(:exist?).and_return true
+    end
+    it 'should return an empty hash if there is no saved data' do
+      File.stub!(:exist?).and_return false
+      Tronprint::Aggregator.data.should == {}
+    end
+    it 'should return an empty hash if a non-hash was saved' do
+      YAML.stub!(:load_file).and_return false
+      Tronprint::Aggregator.data.should == {}
+    end
+    it 'should return the saved data' do
+      YAML.stub!(:load_file).and_return({ :hi => 'there' })
+      Tronprint::Aggregator.data.should == { :hi => 'there' }
+    end
+  end
 end
 
