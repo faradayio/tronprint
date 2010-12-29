@@ -6,6 +6,10 @@ module Tronprint
 
     attr_accessor :file_path, :data
 
+    def file_path
+      @file_path ||= File.join(Dir.pwd, 'tronprint.yml')
+    end
+
     def data
       File.exist?(file_path) ? YAML::load_file(file_path) : {}
     end
