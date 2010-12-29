@@ -17,7 +17,7 @@ module Tronprint
     @application ||= Application.new
   end
 
-  def total_footprint
-    application.emissions
+  def footprint_amount
+    application.emission_estimate.to_f
   end
 end

@@ -21,13 +21,13 @@ describe Tronprint do
     end
   end
 
-  describe '.total_footprint' do
-    let(:mock_application) { mock Tronprint::Application }
+  describe '.footprint_amount' do
+    let(:estimate) { mock Object, :to_f => 100.1 }
+    let(:mock_application) { mock Tronprint::Application, :emission_estimate => estimate }
 
     it 'should return the total footprint of the application' do
-      mock_application.stub!(:emissions).and_return 100
       Tronprint.stub!(:application).and_return mock_application
-      Tronprint.total_footprint.should == 100
+      Tronprint.footprint_amount.should == 100.1
     end
   end
 end
