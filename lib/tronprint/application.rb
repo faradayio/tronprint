@@ -16,5 +16,9 @@ module Tronprint
         self.send("#{name}=", value)
       end
     end
+
+    def name
+      @name ||= File.basename(Dir.pwd)
+    end
   end
 end
