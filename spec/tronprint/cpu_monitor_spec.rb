@@ -19,7 +19,7 @@ describe Tronprint::CPUMonitor do
       cpu_monitor.total_recorded_cpu_time.should == 9.0
       cpu_monitor.stub!(:elapsed_cpu_time).and_return 12.0
       cpu_monitor.monitor
-      cpu_monitor.total_recorded_cpu_time.should == 12.0
+      cpu_monitor.total_recorded_cpu_time.should == 21.0
     end
   end
 

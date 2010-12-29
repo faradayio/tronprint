@@ -21,7 +21,7 @@ module Tronprint
     def monitor
       elapsed_time = elapsed_cpu_time
       Aggregator.update key, elapsed_time
-      self.total_recorded_cpu_time = elapsed_time
+      self.total_recorded_cpu_time += elapsed_time
     end
 
     def total_cpu_time
@@ -29,7 +29,7 @@ module Tronprint
     end
 
     def total_recorded_cpu_time
-      @total_recorded_cpu_time ||= 0
+      @total_recorded_cpu_time ||= 0.0
     end
 
     def elapsed_cpu_time
