@@ -5,7 +5,10 @@ require 'tronprint/cpu_monitor'
 module Tronprint
   extend self
 
+  attr_accessor :aggregator_file_path
+
   def run
+    Aggregator.file_path = aggregator_file_path
     cpu_monitor
   end
 
