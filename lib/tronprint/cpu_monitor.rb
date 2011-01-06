@@ -1,8 +1,9 @@
 module Tronprint
   class CPUMonitor < Thread
-    attr_accessor :total_recorded_cpu_time
+    attr_accessor :total_recorded_cpu_time, :aggregator
 
-    def initialize(options = {})
+    def initialize(aggregator, options = {})
+      self.aggregator = aggregator
       options[:run] ||= true
       if options[:run]
         super do
@@ -20,7 +21,7 @@ module Tronprint
 
     def monitor
       elapsed_time = elapsed_cpu_time
-      Aggregator.update key, elapsed_time
+      aggregator.update key, elapsed_time
       self.total_recorded_cpu_time += elapsed_time
     end
 

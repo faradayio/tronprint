@@ -1,55 +1,35 @@
-require 'yaml'
+require 'delegate'
+require 'moneta'
 
 module Tronprint
-  module Aggregator
-    extend self
-
-    attr_accessor :file_path, :data
-
-    def file_path
-      @file_path ||= File.join(Dir.pwd, 'tronprint.yml')
+  class Aggregator < Delegator
+    def initialize(options = {})
+      adapter_underscored = options.delete :adapter
+      adapter_underscored ||= :pstore
+      require "moneta/adapters/#{adapter_underscored}"
+      klass = Moneta::Adapters.const_get adapter_constant(adapter_underscored)
+      super klass.new(options)
     end
 
-    def data
-      return {} unless File.exist?(file_path)
-      saved_data = YAML::load_file(file_path)
-      saved_data.respond_to?(:[]) ? saved_data : {}
+    def __getobj__
+      @delegate_sd_obj
+    end
+    def __setobj__(obj)
+      @delegate_sd_obj = obj
     end
 
-    def file
-      @file ||= File.open(file_path, 'w')
-    end
-
-    def cached_data
-      @cached_data ||= data
-    end
-
-    def clear_cache!
-      @cached_data = nil
-    end
-
-    def read(key)
-      cached_data[key]
-    end
-
-    def write(key, value)
-      begin
-        cached_data[key] = value
-        file = File.open(file_path, 'w')
-        file.flock File::LOCK_EX
-        YAML::dump cached_data, file
-      ensure
-        file.flock File::LOCK_UN
-        file.close
-        clear_cache!
+    def adapter_constant(adapter_underscored)
+      if adapter_underscored == :pstore
+        'PStore'
+      else
+        adapter_underscored.to_s.split('_').map(&:capitalize).join('')
       end
-      value
     end
 
     def update(key, value)
-      old_value = read key
+      old_value = self[key]
       new_value = old_value ? old_value + value : value
-      write key, new_value
+      self[key] = new_value
     end
   end
 end

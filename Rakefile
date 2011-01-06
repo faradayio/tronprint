@@ -17,6 +17,7 @@ begin
     gem.add_development_dependency 'sandbox'
     gem.add_dependency 'carbon', '~> 1.0.3'
     gem.add_dependency 'i18n'
+    gem.add_dependency 'moneta'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

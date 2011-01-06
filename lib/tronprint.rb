@@ -8,12 +8,19 @@ module Tronprint
   attr_accessor :aggregator_file_path
 
   def run
-    Aggregator.file_path = aggregator_file_path
     cpu_monitor
   end
 
+  def aggregator_file_path
+    @aggregator_file_path ||= File.expand_path('tronprint.pstore', Dir.pwd)
+  end
+
+  def aggregator
+    @aggregator ||= Aggregator.new :path => aggregator_file_path
+  end
+
   def cpu_monitor
-    @cpu_monitor ||= CPUMonitor.new
+    @cpu_monitor ||= CPUMonitor.new aggregator
   end
 
   def application
