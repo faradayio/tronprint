@@ -59,6 +59,7 @@ module Tronprint
   def default_config
     @default_config ||= {
       :aggregator_options => {
+        :adapter => :pstore,
         :path => File.expand_path('tronprint.pstore', Dir.pwd)
       },
       :application_name => File.basename(Dir.pwd)
