@@ -1,3 +1,4 @@
+require 'yaml'
 require 'tronprint/aggregator'
 require 'tronprint/application'
 require 'tronprint/cpu_monitor'
@@ -5,14 +6,18 @@ require 'tronprint/cpu_monitor'
 module Tronprint
   extend self
 
-  attr_accessor :aggregator_file_path, :zip_code, :application_name
+  attr_accessor :aggregator_file_path, :zip_code, :application_name, :brighter_planet_key
+
+  def aggregator_file_path
+    @aggregator_file_path ||= config[:aggregator_file_path]
+  end
+
+  def zip_code
+    @zip_code ||= config[:zip_code]
+  end
 
   def run
     cpu_monitor
-  end
-
-  def aggregator_file_path
-    @aggregator_file_path ||= File.expand_path('tronprint.pstore', Dir.pwd)
   end
 
   def aggregator
@@ -34,5 +39,21 @@ module Tronprint
   def footprint_amount
     app = Application.new :zip_code => zip_code, :duration => total_duration
     app.emission_estimate.to_f
+  end
+
+  def config
+    load_config || default_config
+  end
+
+  def load_config
+    return @loaded_config unless @loaded_config.nil?
+    path = File.expand_path('config/tronprint.yml', Dir.pwd)
+    @loaded_config = YAML::load_file path if File.exist? path
+  end
+
+  def default_config
+    @default_config ||= {
+      :aggregator_file_path => File.expand_path('tronprint.pstore', Dir.pwd)
+    }
   end
 end

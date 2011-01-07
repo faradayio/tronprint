@@ -39,4 +39,38 @@ describe Tronprint do
       Tronprint.footprint_amount
     end
   end
+
+  describe '.config' do
+    it 'should return a configuration loaded from disk' do
+      Tronprint.stub!(:load_config).and_return nil
+      Tronprint.stub!(:default_config).and_return :foo => :bar
+      Tronprint.config.should == { :foo => :bar }
+    end
+    it 'should return a default configuration if no config file exists' do
+      Tronprint.stub!(:load_config).and_return :foo => :bar
+      Tronprint.config.should == { :foo => :bar }
+    end
+  end
+
+  describe '.load_config' do
+    it 'should load a config file from cwd/config/tronprint.yml if it exists' do
+      Dir.stub!(:pwd).and_return '/some/dir'
+      File.stub!(:exist?).and_return true
+      YAML.should_receive(:load_file).with('/some/dir/config/tronprint.yml').
+        and_return :my => :config
+      Tronprint.load_config.should == { :my => :config }
+    end
+    it 'should return nil if no config file exists' do
+      Tronprint.instance_variable_set :@loaded_config, nil
+      Dir.stub!(:pwd).and_return '/some/dir'
+      File.stub!(:exist?).and_return false
+      Tronprint.load_config.should be_nil
+    end
+  end
+
+  describe '.default_config' do
+    it 'should return a default configuration' do
+      Tronprint.default_config.should be_an_instance_of(Hash)
+    end
+  end
 end
