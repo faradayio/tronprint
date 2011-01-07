@@ -33,7 +33,7 @@ module Tronprint
   end
 
   def application_name
-    @application_name ||= File.basename(Dir.pwd)
+    @application_name ||= config[:application_name]
   end
 
   def total_duration
@@ -60,7 +60,8 @@ module Tronprint
     @default_config ||= {
       :aggregator_options => {
         :path => File.expand_path('tronprint.pstore', Dir.pwd)
-      }
+      },
+      :application_name => File.basename(Dir.pwd)
     }
   end
 end
