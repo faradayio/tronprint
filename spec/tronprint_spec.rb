@@ -32,9 +32,10 @@ describe Tronprint do
     end
     it 'should send the zip code and total duration to the application' do
       Tronprint.zip_code = 48915
+      Tronprint.brighter_planet_key = 'ABC123'
       Tronprint.stub!(:total_duration).and_return 28.7
       Tronprint::Application.should_receive(:new).
-        with(:zip_code => 48915, :duration => 28.7).
+        with(:zip_code => 48915, :duration => 28.7, :brighter_planet_key => 'ABC123').
         and_return mock_application
       Tronprint.footprint_amount
     end

@@ -16,6 +16,10 @@ module Tronprint
     @zip_code ||= config[:zip_code]
   end
 
+  def brighter_planet_key
+    @brighter_planet_key ||= config[:brighter_planet_key]
+  end
+
   def run
     cpu_monitor
   end
@@ -37,7 +41,8 @@ module Tronprint
   end
 
   def footprint_amount
-    app = Application.new :zip_code => zip_code, :duration => total_duration
+    app = Application.new :zip_code => zip_code, :duration => total_duration, 
+      :brighter_planet_key => brighter_planet_key
     app.emission_estimate.to_f
   end
 
