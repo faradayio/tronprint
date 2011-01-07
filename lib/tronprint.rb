@@ -5,7 +5,7 @@ require 'tronprint/cpu_monitor'
 module Tronprint
   extend self
 
-  attr_accessor :aggregator_file_path
+  attr_accessor :aggregator_file_path, :zip_code, :application_name
 
   def run
     cpu_monitor
@@ -20,14 +20,19 @@ module Tronprint
   end
 
   def cpu_monitor
-    @cpu_monitor ||= CPUMonitor.new aggregator
+    @cpu_monitor ||= CPUMonitor.new aggregator, application_name
   end
 
-  def application
-    @application ||= Application.new
+  def application_name
+    @application_name ||= File.basename(Dir.pwd)
+  end
+
+  def total_duration
+    cpu_monitor.total_recorded_cpu_time
   end
 
   def footprint_amount
-    application.emission_estimate.to_f
+    app = Application.new :zip_code => zip_code, :duration => total_duration
+    app.emission_estimate.to_f
   end
 end

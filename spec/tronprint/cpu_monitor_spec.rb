@@ -2,14 +2,13 @@ require 'spec_helper'
 
 describe Tronprint::CPUMonitor do
   let(:aggregator) { Tronprint::Aggregator.new :adapter => :memory }
-  let(:cpu_monitor) { Tronprint::CPUMonitor.new aggregator, :run => false }
+  let(:cpu_monitor) { Tronprint::CPUMonitor.new aggregator, 'my_app', :run => false }
 
   describe '#monitor' do
     before :each do
       cpu_monitor.stub!(:elapsed_cpu_time).and_return 23.87
     end
     it 'should write the elapsed time to the aggregate statistics' do
-      Tronprint.application.name = 'my_app'
       cpu_monitor.monitor
       aggregator['my_app/application/cpu_time'].should == 23.87
     end

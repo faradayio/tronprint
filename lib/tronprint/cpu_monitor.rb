@@ -1,9 +1,10 @@
 module Tronprint
   class CPUMonitor < Thread
-    attr_accessor :total_recorded_cpu_time, :aggregator
+    attr_accessor :total_recorded_cpu_time, :aggregator, :application_name
 
-    def initialize(aggregator, options = {})
+    def initialize(aggregator, application_name, options = {})
       self.aggregator = aggregator
+      self.application_name = application_name
       options[:run] ||= true
       if options[:run]
         super do
@@ -16,7 +17,7 @@ module Tronprint
     end
 
     def key
-      [Tronprint.application.name, 'application', 'cpu_time'].join('/')
+      [application_name, 'application', 'cpu_time'].join('/')
     end
 
     def monitor
