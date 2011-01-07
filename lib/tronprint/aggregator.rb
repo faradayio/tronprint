@@ -8,7 +8,8 @@ module Tronprint
       adapter_underscored ||= :pstore
       require "moneta/adapters/#{adapter_underscored}"
       klass = Moneta::Adapters.const_get adapter_constant(adapter_underscored)
-      super klass.new(options)
+      args = adapter_underscored == :memory ? [] : [options]
+      super klass.new(*args)
     end
 
     def __getobj__
