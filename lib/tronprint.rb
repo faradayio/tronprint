@@ -6,10 +6,10 @@ require 'tronprint/cpu_monitor'
 module Tronprint
   extend self
 
-  attr_accessor :aggregator_file_path, :zip_code, :application_name, :brighter_planet_key
+  attr_accessor :aggregator_options, :zip_code, :application_name, :brighter_planet_key
 
-  def aggregator_file_path
-    @aggregator_file_path ||= config[:aggregator_file_path]
+  def aggregator_options
+    @aggregator_options ||= config[:aggregator_options]
   end
 
   def zip_code
@@ -25,7 +25,7 @@ module Tronprint
   end
 
   def aggregator
-    @aggregator ||= Aggregator.new :path => aggregator_file_path
+    @aggregator ||= Aggregator.new aggregator_options
   end
 
   def cpu_monitor
@@ -58,7 +58,9 @@ module Tronprint
 
   def default_config
     @default_config ||= {
-      :aggregator_file_path => File.expand_path('tronprint.pstore', Dir.pwd)
+      :aggregator_options => {
+        :path => File.expand_path('tronprint.pstore', Dir.pwd)
+      }
     }
   end
 end
