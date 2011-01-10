@@ -6,8 +6,8 @@ module Tronprint
     def initialize(options = {})
       adapter_underscored = options.delete :adapter
       adapter_underscored ||= :pstore
-      require "moneta/adapters/#{adapter_underscored}"
-      klass = Moneta::Adapters.const_get adapter_constant(adapter_underscored)
+      require "moneta/#{adapter_underscored}"
+      klass = Moneta.const_get adapter_constant(adapter_underscored)
       args = adapter_underscored == :memory ? [] : [options]
       super klass.new(*args)
     end
