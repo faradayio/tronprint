@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe Tronprint do
   let(:mock_cpu) { mock Tronprint::CPUMonitor, :total_recorded_cpu_time => 27.2 }
+  
+  before do
+    Tronprint.aggregator_options[:adapter] = :memory
+  end
+
   describe '.run' do
     it 'should start up each monitor' do
       Tronprint.should_receive :cpu_monitor
