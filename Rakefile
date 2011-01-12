@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = 'tronprint'
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = 'Ruby process carbon footprinter'
+    gem.description = 'A gem for monitoring the carbon footprint of your ruby app'
     gem.email = 'dkastner@gmail.com'
     gem.homepage = 'http://github.com/dkastner/tronprint'
     gem.authors = ['Derek Kastner']

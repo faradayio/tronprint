@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Derek Kastner"]
   s.date = %q{2011-01-12}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = 'A gem for monitoring the carbon footprint of your ruby app'
   s.email = %q{dkastner@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -48,7 +48,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/dkastner/tronprint}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = 'Ruby process carbon footprinter'
   s.test_files = [
     "spec/spec_helper.rb",
     "spec/tronprint/aggregator_spec.rb",
