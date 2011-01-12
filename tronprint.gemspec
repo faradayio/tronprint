@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{tronprint}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Derek Kastner"]
-  s.date = %q{2011-01-10}
+  s.date = %q{2011-01-12}
   s.description = %q{TODO: longer description of your gem}
   s.email = %q{dkastner@gmail.com}
   s.extra_rdoc_files = [
@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
     "lib/tronprint/application.rb",
     "lib/tronprint/cpu_monitor.rb",
     "lib/tronprint/rails.rb",
+    "lib/tronprint/rails/generator.rb",
     "lib/tronprint/rails/tronprint_helper.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb",
