@@ -3,6 +3,10 @@ require 'tronprint/aggregator'
 require 'tronprint/application'
 require 'tronprint/cpu_monitor'
 
+if defined?(Rails)
+  require 'tronprint/rails'
+end
+
 module Tronprint
   extend self
 
@@ -24,6 +28,10 @@ module Tronprint
     cpu_monitor
   end
 
+  def running?
+    !@cpu_monitor.nil?
+  end
+
   def aggregator
     @aggregator ||= Aggregator.new aggregator_options
   end
@@ -37,13 +45,7 @@ module Tronprint
   end
 
   def total_duration
-    cpu_monitor.total_recorded_cpu_time
-  end
-
-  def footprint_amount
-    app = Application.new :zip_code => zip_code, :duration => total_duration, 
-      :brighter_planet_key => brighter_planet_key
-    app.emission_estimate.to_f
+    aggregator[cpu_monitor.key]
   end
 
   def config
@@ -59,10 +61,16 @@ module Tronprint
   def default_config
     @default_config ||= {
       :aggregator_options => {
-        :adapter => :pstore,
-        :path => File.expand_path('tronprint.pstore', Dir.pwd)
+        :adapter => :YAML,
+        :path => File.expand_path('tronprint_stats.yml', Dir.pwd)
       },
       :application_name => File.basename(Dir.pwd)
     }
+  end
+
+  def emission_estimate
+    app = Application.new :zip_code => zip_code, :duration => total_duration, 
+      :brighter_planet_key => brighter_planet_key
+    app.emission_estimate
   end
 end

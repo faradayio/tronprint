@@ -28,21 +28,23 @@ describe Tronprint do
 
   describe '.footprint_amount' do
     let(:estimate) { mock Object, :to_f => 100.1 }
-    let(:mock_application) { mock Tronprint::Application, :emission_estimate => estimate }
 
     it 'should return the total footprint of the application' do
-      Tronprint.stub!(:total_duration).and_return 28.7
-      Tronprint::Application.stub!(:new).and_return mock_application
+      Tronprint.stub!(:emission_estimate).and_return estimate
       Tronprint.footprint_amount.should == 100.1
     end
+  end
+
+  describe '.emission_estimate' do
     it 'should send the zip code and total duration to the application' do
+      Tronprint.instance_variable_set(:@emission_estimate, nil)
       Tronprint.zip_code = 48915
       Tronprint.brighter_planet_key = 'ABC123'
       Tronprint.stub!(:total_duration).and_return 28.7
       Tronprint::Application.should_receive(:new).
         with(:zip_code => 48915, :duration => 28.7, :brighter_planet_key => 'ABC123').
-        and_return mock_application
-      Tronprint.footprint_amount
+        and_return mock(Object, :emission_estimate => nil)
+      Tronprint.emission_estimate
     end
   end
 
@@ -77,6 +79,15 @@ describe Tronprint do
   describe '.default_config' do
     it 'should return a default configuration' do
       Tronprint.default_config.should be_an_instance_of(Hash)
+    end
+  end
+
+  describe '.total_duration' do
+    it 'should look up the total for the application' do
+      Tronprint.instance_variable_set :@cpu_monitor, nil
+      Tronprint.application_name = 'groove'
+      Tronprint.aggregator.update 'groove/application/cpu_time', 5.0
+      Tronprint.total_duration.should == 5.0
     end
   end
 end

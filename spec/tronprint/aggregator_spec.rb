@@ -4,7 +4,7 @@ require 'sandbox'
 describe Tronprint::Aggregator do
   let(:aggregator) { Tronprint::Aggregator.new :adapter => :memory }
 
-  describe '.update' do
+  describe '#update' do
     it 'should write statistics to an uninitailzed key' do
       aggregator.update('foo/bar', 22.1)
       aggregator['foo/bar'].should == 22.1

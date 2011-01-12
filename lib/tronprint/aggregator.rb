@@ -6,8 +6,13 @@ module Tronprint
     def initialize(options = {})
       adapter_underscored = options.delete :adapter
       adapter_underscored ||= :pstore
-      require "moneta/#{adapter_underscored}"
-      klass = Moneta.const_get adapter_constant(adapter_underscored)
+      begin
+        require "moneta/#{adapter_underscored.downcase}"
+        klass = Moneta.const_get adapter_constant(adapter_underscored)
+      rescue LoadError # Bundler hack
+        require "moneta/adapters/#{adapter_underscored.downcase}"
+        klass = Moneta::Adapters.const_get adapter_constant(adapter_underscored)
+      end
       args = adapter_underscored == :memory ? [] : [options]
       super klass.new(*args)
     end
@@ -22,6 +27,8 @@ module Tronprint
     def adapter_constant(adapter_underscored)
       if adapter_underscored == :pstore
         'PStore'
+      elsif adapter_underscored == :yaml
+        'YAML'
       else
         adapter_underscored.to_s.split('_').map(&:capitalize).join('')
       end
