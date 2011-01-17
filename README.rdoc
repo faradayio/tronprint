@@ -1,9 +1,97 @@
-= tronprint
+= Tronprint
 
-Description goes here.
+"The Grid: a digital frontier. I tried to picture clusters of information
+as they moved through the computer. Ships, motorcycles... Were the circuits
+like freeways? I kept dreaming of a world I'd never see. And then, one day,
+I got in!"
+
+-Floyd
+
+Tronprint helps you visualize the carbon footprint of all of those little 
+Ruby processes zooming around on your system in their light cycles. You 
+can then show this footprint to the world of the Users via Rails helpers.
+
+The emission estimates are calculated using {CM1}[http://carbon.brighterplanet.com],
+{Brighter Planet's}[http://brighterplanet.com] carbon emissions calculation service.
+Specifically, the {computation emitter}[http://carbon.brighterplanet.com/models/computation] 
+is used.
+
+== Getting Started
+
+If you haven't already, go to http://keys.brighterplanet.com and sign up for an
+API key. Non-commercial use of CM1 is free, but commercial use is 
+{charged}[http://carbon.brighterplanet.com/pricing] per-query.
+
+=== Rails
+
+Add tronprint to your Gemfile:
+
+  gem 'tronprint'
+
+And install the gem from the command line:
+
+  bundle update
+
+Once you start your Rails app, Tronprint will automatically begin collecting 
+usage data. If you have multiple Rails processes running, Tronprint will 
+keep track of aggregate statistics for all processes. This is where
+Tronprint.application_name comes into play. By default, your application's 
+directory name is used.
+
+In order to display your application's footprint, you can use Tronprint's 
+built-in view helper: TronprintHelper. Feel free to cache your footprint 
+to minimize the number of API requests made to CM1.
+
+==== Heroku
+
+The easiest way to get started on Heroku is to sign up for a free MongoHQ 
+account to be used for the Tronprint::Aggregator. Since Heroku doesn't 
+allow access to the filesystem, Tronprint::Aggregator's default YAML 
+storage option will not work. Once you have MongoDB set up, change 
+config/tronprint.yml to:
+
+  --- 
+  :aggregator_options: 
+    :adapter: :mongodb
+    :host: example.mongohq.com
+    :port: 1234
+    :db: tronprint
+    :collection: tronprint
+  :application_name: my_app
+
+=== Other Ruby Apps
+
+Tronprint will work with any Ruby app, but you have to do a little self-configuration.
+
+When your application has started, all you have to do is make a call to 
+Tronprint.run. This starts up a thread that collects statistics at a 
+certain interval and stores the results in a key/value store.
+
+To retrieve the footprint, make a call to Tronprint.emission_estimate. This 
+returns an instance of {Carbon::EmissionEstimate}[https://github.com/brighterplanet/carbon/blob/master/lib/carbon/emission_estimate.rb].
+It can be converted to a float for the amount in kilograms or other 
+methods, such as EmissionEstimate#methodology can provide a link to the 
+methodology statement used to derive the estimate.
+
+=== Aggregator Configuration Notes
+
+If you want to hide your aggregator configuration, you can leave the :aggregator_options 
+item blank in config/tronprint.yml. In your application, manually set 
+Tronprint.aggregator_options to the values you desire.
+
+== Configuration
+
+There are several properties of Tronprint that can be configured. The configuration
+is persisted in `pwd`/config/tronprint.yml. Here is a list of options that
+can be set:
+
+:zip_code:: The ZIP code where the server or host computer resides.
+:brighter_planet_key:: Your Brighter Planet CM1 key. Get one from {keys.brighterplanet.com}[http://keys.brighterplanet.com].
+:application_name:: The name of your application.
+:aggregator_options:: A hash of options to send to the aggregator. A sub-option of :adapter is required. This corresponds to the name of an adapter supported by {moneta}[http://github.com/wycats/moneta]. All other sub-options given are passed on to the moneta adapter's initializer.
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a
@@ -14,4 +102,4 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2010 Derek Kastner. See LICENSE for details.
+Copyright © 2010 Brighter Planet. See LICENSE for details.
