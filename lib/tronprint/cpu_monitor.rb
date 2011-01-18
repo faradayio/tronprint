@@ -12,7 +12,7 @@ module Tronprint
     def initialize(aggregator, application_name, options = {})
       self.aggregator = aggregator
       self.application_name = application_name
-      options[:run] ||= true
+      options[:run] = true if options[:run].nil?
       if options[:run]
         super do
           while(true) do
@@ -20,6 +20,8 @@ module Tronprint
            sleep(5)
           end
         end
+      else
+        super() {}  # Ruby 1.8 hack
       end
     end
 

@@ -17,16 +17,19 @@ module Tronprint
     # for options needed by your desired adapter.
     def initialize(options = {})
       adapter_underscored = options.delete :adapter
-      adapter_underscored ||= :pstore
+      adapter_underscored ||= 'pstore'
+      adapter_underscored = adapter_underscored.to_s.downcase
       begin
-        require "moneta/#{adapter_underscored.downcase}"
+        require "moneta/#{adapter_underscored}"
         klass = Moneta.const_get adapter_constant(adapter_underscored)
       rescue LoadError # Bundler hack
-        require "moneta/adapters/#{adapter_underscored.downcase}"
+        require "moneta/adapters/#{adapter_underscored}"
         klass = Moneta::Adapters.const_get adapter_constant(adapter_underscored)
       end
-      args = adapter_underscored == :memory ? [] : [options]
-      super klass.new(*args)
+      args = adapter_underscored == 'memory' ? [] : [options]
+      instance = klass.new(*args)
+      __setobj__ instance  # required in Ruby 1.8.7
+      super instance
     end
 
     def __getobj__ # :nodoc:
@@ -38,12 +41,12 @@ module Tronprint
 
     # The class name of the desired moneta adapter
     def adapter_constant(adapter_underscored)
-      if adapter_underscored == :pstore
-        'PStore'
-      elsif adapter_underscored == :yaml
-        'YAML'
+      case adapter_underscored
+      when 'pstore' then 'PStore'
+      when 'yaml' then 'YAML'
+      when 'mongodb' then 'MongoDB'
       else
-        adapter_underscored.to_s.split('_').map(&:capitalize).join('')
+        adapter_underscored.split('_').map(&:capitalize).join('')
       end
     end
 
