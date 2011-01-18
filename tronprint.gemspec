@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
     '.rspec',
     'Gemfile',
     'Rakefile',
-    'tronprint.gemspec'
+    'tronprint.gemspec',
     'autotest/discover.rb'
   ]
   s.test_files = Dir.glob('spec/**/*') + Dir.glob('features/**/*')
