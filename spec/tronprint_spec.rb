@@ -26,15 +26,6 @@ describe Tronprint do
     end
   end
 
-  describe '.footprint_amount' do
-    let(:estimate) { mock Object, :to_f => 100.1 }
-
-    it 'should return the total footprint of the application' do
-      Tronprint.stub!(:emission_estimate).and_return estimate
-      Tronprint.footprint_amount.should == 100.1
-    end
-  end
-
   describe '.emission_estimate' do
     it 'should send the zip code and total duration to the application' do
       Tronprint.instance_variable_set(:@emission_estimate, nil)

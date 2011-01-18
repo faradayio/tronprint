@@ -10,7 +10,7 @@ describe TronprintHelper do
 
   describe '#total_footprint' do
     it 'should return the total footprint' do
-      Tronprint.stub!(:footprint_amount).and_return 89.4
+      helper.stub!(:emission_estimate).and_return 89.4
       helper.total_footprint.should == 89.4
     end
   end
