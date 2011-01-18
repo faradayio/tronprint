@@ -2,26 +2,10 @@ require 'rubygems'
 require 'rake'
 
 begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = 'tronprint'
-    gem.summary = 'Ruby process carbon footprinter'
-    gem.description = 'A gem for monitoring the carbon footprint of your ruby app'
-    gem.email = 'dkastner@gmail.com'
-    gem.homepage = 'http://github.com/dkastner/tronprint'
-    gem.authors = ['Derek Kastner']
-    gem.add_development_dependency 'cucumber'
-    gem.add_development_dependency 'jeweler', '~> 1.4.0'
-    gem.add_development_dependency 'rake'
-    gem.add_development_dependency 'rspec', '~>2.0'
-    gem.add_development_dependency 'sandbox'
-    gem.add_dependency 'carbon', '~> 1.0.3'
-    gem.add_dependency 'i18n'
-    gem.add_dependency 'moneta'
-  end
-  Jeweler::GemcutterTasks.new
+  require 'bueller'
+  Bueller::Tasks.new
 rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+  puts "Bueller (or a dependency) not available. Install it with: gem install bueller"
 end
 
 begin
