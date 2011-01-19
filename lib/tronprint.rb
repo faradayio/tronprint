@@ -40,11 +40,6 @@ module Tronprint
     @aggregator_options ||= config[:aggregator_options]
   end
 
-  def aggregator_options=(val)
-    @aggregator = nil
-    @aggregator_options = val
-  end
-
   # The zip code of the server's hosting location. This affects 
   # the total footprint because certain regions rely more heavily
   # on different sources of electricity.

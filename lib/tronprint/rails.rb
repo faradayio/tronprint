@@ -5,7 +5,7 @@ module Tronprint
 
   # Rails plugin class.
   class Railtie < Rails::Railtie
-    initializer 'tronprint.run' do
+    config.after_initialize do
       Tronprint.run # if Rails.env.production?
     end
 
