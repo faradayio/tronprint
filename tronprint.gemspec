@@ -2,10 +2,10 @@
 
 Gem::Specification.new do |s|
   s.name = 'tronprint'
-  s.version = '0.0.2'
+  s.version = "0.0.3"
 
   s.authors = ['Derek Kastner']
-  s.date = %q{2011-01-12}
+  s.date = "2011-01-19"
   s.description = %q{A gem for monitoring the carbon footprint of your ruby app}
   s.email = %q{dkastner@gmail.com}
   s.homepage = %q{http://github.com/brighterplanet/tronprint}
