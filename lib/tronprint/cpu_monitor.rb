@@ -33,8 +33,12 @@ module Tronprint
     # The process used to collect CPU uptime data and store it.
     def monitor
       elapsed_time = elapsed_cpu_time
+      if total_recorded_cpu_time
+        self.total_recorded_cpu_time += elapsed_time
+      else
+        self.total_recorded_cpu_time = elapsed_time
+      end
       aggregator.update key, elapsed_time
-      self.total_recorded_cpu_time += elapsed_time
     end
 
     # The total amount of CPU time used by the current process 
@@ -45,7 +49,7 @@ module Tronprint
 
     # The total amount of CPU time we've recorded for the application.
     def total_recorded_cpu_time
-      @total_recorded_cpu_time ||= 0.0
+      @total_recorded_cpu_time ||= aggregator[key] 
     end
 
     # The amount of CPU time consumed since the last time we checked.
