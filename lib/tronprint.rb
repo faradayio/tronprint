@@ -79,9 +79,9 @@ module Tronprint
     @cpu_monitor ||= CPUMonitor.new aggregator, application_name
   end
 
-  # Fetch the total amount of CPU time used by the application.
+  # Fetch the total amount of CPU time (in hours) used by the application.
   def total_duration
-    aggregator[cpu_monitor.key]
+    aggregator[cpu_monitor.key] / 3600
   end
 
   # The current configuration.
