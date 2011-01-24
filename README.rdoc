@@ -94,6 +94,12 @@ The second way is to manually set the aggregator options before Tronprint.run is
 In Rails, this can be done with an initializer. Just set Tronprint.aggregator_options to
 the options you would normally set in config/tronprint.yml.
 
+== Examples
+
+You can see an example Rails app using tronprint at http://github.com/brighterplanet/yaktrak.
+Files of note: config/initializers/tronprint.rb, Gemfile, app/views/trackings/_form.html.rb.
+The live example is at http://yaktrak.org
+
 == Note on Patches/Pull Requests
 
 * Fork the project.
