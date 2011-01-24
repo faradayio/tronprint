@@ -85,7 +85,7 @@ can be set:
 
 === Configuring the aggregator
 
-Tronprint needs to write the statistics it collects to a persistnent data 
+Tronprint needs to write the statistics it collects to a persistent data 
 store. There are two ways to configure this.
 
 The first way is to edit config/tronprint.yml as mentioned above.
