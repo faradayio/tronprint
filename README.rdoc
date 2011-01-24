@@ -47,17 +47,16 @@ to minimize the number of API requests made to CM1.
 The easiest way to get started on Heroku is to sign up for a free MongoHQ 
 account to be used for the Tronprint::Aggregator. Since Heroku doesn't 
 allow access to the filesystem, Tronprint::Aggregator's default YAML 
-storage option will not work. Once you have MongoDB set up, change 
-config/tronprint.yml to:
+storage option will not work. Once you have MongoDB set up, configure 
+tronprint with a Rails initializer:
 
-  --- 
-  :aggregator_options: 
-    :adapter: :mongodb
-    :host: example.mongohq.com
-    :port: 1234
-    :db: tronprint
-    :collection: tronprint
-  :application_name: my_app
+1. Open a new file, config/initializers/tronprint.rb
+1. In it, write: 
+  Tronprint.aggregator_options = {
+    :adapter => :mongodb,
+    :uri => ENV['MONGOHQ_URL'],
+    :collection => 'tronprint'
+  }
 
 === Other Ruby Apps
 
@@ -73,12 +72,6 @@ It can be converted to a float for the amount in kilograms or other
 methods, such as EmissionEstimate#methodology can provide a link to the 
 methodology statement used to derive the estimate.
 
-=== Aggregator Configuration Notes
-
-If you want to hide your aggregator configuration, you can leave the :aggregator_options 
-item blank in config/tronprint.yml. In your application, manually set 
-Tronprint.aggregator_options to the values you desire.
-
 == Configuration
 
 There are several properties of Tronprint that can be configured. The configuration
@@ -88,7 +81,18 @@ can be set:
 :zip_code:: The ZIP code where the server or host computer resides.
 :brighter_planet_key:: Your Brighter Planet CM1 key. Get one from {keys.brighterplanet.com}[http://keys.brighterplanet.com].
 :application_name:: The name of your application.
-:aggregator_options:: A hash of options to send to the aggregator. A sub-option of :adapter is required. This corresponds to the name of an adapter supported by {moneta}[http://github.com/wycats/moneta]. All other sub-options given are passed on to the moneta adapter's initializer.
+:aggregator_options:: A hash of options to send to the aggregator. A sub-option of :adapter is required. This corresponds to the name of an adapter supported by {moneta}[http://github.com/dkastner/moneta]. All other sub-options given are passed on to the moneta adapter's initializer.
+
+=== Configuring the aggregator
+
+Tronprint needs to write the statistics it collects to a persistnent data 
+store. There are two ways to configure this.
+
+The first way is to edit config/tronprint.yml as mentioned above.
+
+The second way is to manually set the aggregator options before Tronprint.run is called. 
+In Rails, this can be done with an initializer. Just set Tronprint.aggregator_options to
+the options you would normally set in config/tronprint.yml.
 
 == Note on Patches/Pull Requests
 
