@@ -20,7 +20,8 @@ is used.
 
 If you haven't already, go to http://keys.brighterplanet.com and sign up for an
 API key. Non-commercial use of CM1 is free, but commercial use is 
-{charged}[http://carbon.brighterplanet.com/pricing] per-query.
+{charged}[http://carbon.brighterplanet.com/pricing] per-query. Heroku users are 
+charged per-month.
 
 === Rails
 
@@ -44,13 +45,18 @@ to minimize the number of API requests made to CM1.
 
 ==== Heroku
 
-The easiest way to get started on Heroku is to sign up for a free MongoHQ 
-account to be used for the Tronprint::Aggregator. Since Heroku doesn't 
-allow access to the filesystem, Tronprint::Aggregator's default YAML 
-storage option will not work. Once you have MongoDB set up, configure 
+Tronprint is available as a Heroku add-on. Add tronprint to your app, and 
+your app will have an environment variable provided: 
+`ENV['TRONPRINT_API_KEY']`.
+
+The tronprint gem will handle API key setup for you, but you will still 
+need to configure your app to store statistics in a persistent data store. 
+By default, Tronprint will use the yaml storage option, but this won't 
+fly on Heroku. The easiest way to get up and running is to add the 
+MongoHQ add-on to your app. Once you have MongoHQ set up, configure 
 tronprint with a Rails initializer:
 
-1. Open a new file, config/initializers/tronprint.rb
+1. Open a new file, `config/initializers/tronprint.rb`
 1. In it, write: 
   Tronprint.aggregator_options = {
     :adapter => :mongodb,

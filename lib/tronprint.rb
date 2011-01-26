@@ -50,6 +50,7 @@ module Tronprint
   # This is your Brighter Planet API key. Get one from 
   # {keys.brighterplanet.com}[http://keys.brighterplanet.com]
   def brighter_planet_key
+    @brighter_planet_key ||= ENV['TRONPRINT_API_KEY']
     @brighter_planet_key ||= config[:brighter_planet_key]
   end
 

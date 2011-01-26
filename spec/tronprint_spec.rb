@@ -39,6 +39,20 @@ describe Tronprint do
     end
   end
 
+  describe '.brighter_planet_key' do
+    it 'should return the key defined in ENV by default' do
+      Tronprint.brighter_planet_key = nil
+      ENV['TRONPRINT_API_KEY'] = 'abcc1234'
+      Tronprint.brighter_planet_key.should == 'abcc1234'
+    end
+    it 'should return the key defined in the configuration by default if no ENV is given' do
+      Tronprint.brighter_planet_key = nil
+      ENV['TRONPRINT_API_KEY'] = nil
+      Tronprint.stub!(:config).and_return({ :brighter_planet_key => 'aaa' })
+      Tronprint.brighter_planet_key.should == 'aaa'
+    end
+  end
+
   describe '.config' do
     it 'should return a configuration loaded from disk' do
       Tronprint.stub!(:load_config).and_return nil
