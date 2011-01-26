@@ -73,7 +73,7 @@ Tronprint.run. This starts up a thread that collects statistics at a
 certain interval and stores the results in a key/value store.
 
 To retrieve the footprint, make a call to Tronprint.emission_estimate. This 
-returns an instance of {Carbon::EmissionEstimate}[https://github.com/brighterplanet/carbon/blob/master/lib/carbon/emission_estimate.rb].
+returns an instance of {Carbon::EmissionEstimate}[http://rubydoc.info/gems/carbon/Carbon/EmissionEstimate].
 It can be converted to a float for the amount in kilograms or other 
 methods, such as EmissionEstimate#methodology can provide a link to the 
 methodology statement used to derive the estimate.
