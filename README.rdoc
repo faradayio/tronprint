@@ -5,7 +5,7 @@ as they moved through the computer. Ships, motorcycles... Were the circuits
 like freeways? I kept dreaming of a world I'd never see. And then, one day,
 I got in!"
 
--Floyd
+-Flynn
 
 Tronprint helps you visualize the carbon footprint of all of those little 
 Ruby processes zooming around on your system in their light cycles. You 
