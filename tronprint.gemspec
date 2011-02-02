@@ -1,8 +1,10 @@
 # -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require 'tronprint/version'
 
 Gem::Specification.new do |s|
   s.name = 'tronprint'
-  s.version = "0.0.8"
+  s.version = Tronprint::VERSION
 
   s.authors = ['Derek Kastner']
   s.date = "2011-01-26"
