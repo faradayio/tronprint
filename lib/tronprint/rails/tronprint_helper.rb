@@ -15,4 +15,9 @@ module TronprintHelper
   def emission_estimate
     @emission_estimate ||= Tronprint.emission_estimate
   end
+
+  # Let the world know that your app is powered by CM1
+  def cm1_badge
+    %q{<script type="text/javascript" src="http://carbon.brighterplanet.com/badge.js"></script>}
+  end
 end
