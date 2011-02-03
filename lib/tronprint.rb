@@ -113,7 +113,7 @@ module Tronprint
     @default_config[:brighter_planet_key] = ENV['TRONPRINT_API_KEY'] if ENV['TRONPRINT_API_KEY']
     if ENV['MONGOHQ_URL']
       @default_config[:aggregator_options] = {
-        :url => ENV['MONGOHQ_URL'],
+        :uri => ENV['MONGOHQ_URL'],
         :adapter => :mongodb
       }
     end
