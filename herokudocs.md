@@ -38,7 +38,7 @@ In your app.rb, add:
 
 ## Configuring Tronprint
 
-If you are using Heroku and choose to use a different datastore than MongoHQ, or you are not an Heroku and you choose to use an adapter different than the default yaml datastore, you'll need to configure Tronprint when your application initializes. In Rails, Tronprint's aggregator (the interface to the key/value store) can be initialized in config/initializers/tronprint.rb:
+If you choose to use a different datastore than MongoHQ, you'll need to configure Tronprint when your application initializes. In Rails, Tronprint's aggregator (the interface to the key/value store) can be initialized in config/initializers/tronprint.rb:
 
     Tronprint.aggregator_options = {
       :adapter => :my_adapter,
