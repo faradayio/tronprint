@@ -50,7 +50,6 @@ module Tronprint
   # This is your Brighter Planet API key. Get one from 
   # {keys.brighterplanet.com}[http://keys.brighterplanet.com]
   def brighter_planet_key
-    @brighter_planet_key ||= ENV['TRONPRINT_API_KEY']
     @brighter_planet_key ||= config[:brighter_planet_key]
   end
 
@@ -90,6 +89,11 @@ module Tronprint
     load_config || default_config
   end
 
+  def config=(val)
+    @loaded_config = val
+    @default_config = val
+  end
+
   # Fetch the configuration stored in config/tronprint.yml.
   def load_config
     return @loaded_config unless @loaded_config.nil?
@@ -101,13 +105,22 @@ module Tronprint
   # are stored in `pwd`/tronprint_stats.yml. The application name 
   # is assumed to be the name of the current directory.
   def default_config
-    @default_config ||= {
-      :aggregator_options => {
-        :adapter => :YAML,
-        :path => File.expand_path('tronprint_stats.yml', Dir.pwd)
-      },
+    return @default_config unless @default_config.nil?
+    @default_config = {
       :application_name => File.basename(Dir.pwd)
     }
+    @default_config[:brighter_planet_key] = ENV['TRONPRINT_API_KEY'] if ENV['TRONPRINT_API_KEY']
+    if ENV['MONGOHQ_URL']
+      @default_config[:aggregator_options] = {
+        :url => ENV['MONGOHQ_URL'],
+        :adapter => :mongodb
+      }
+    end
+    @default_config[:aggregator_options] ||= {
+      :adapter => :YAML,
+      :path => File.expand_path('tronprint_stats.yml', Dir.pwd)
+    }
+    @default_config
   end
 
   # Calculate emissions using aggregated data. A call is made to 

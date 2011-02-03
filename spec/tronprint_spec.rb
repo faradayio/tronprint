@@ -40,14 +40,8 @@ describe Tronprint do
   end
 
   describe '.brighter_planet_key' do
-    it 'should return the key defined in ENV by default' do
-      Tronprint.brighter_planet_key = nil
-      ENV['TRONPRINT_API_KEY'] = 'abcc1234'
-      Tronprint.brighter_planet_key.should == 'abcc1234'
-    end
-    it 'should return the key defined in the configuration by default if no ENV is given' do
-      Tronprint.brighter_planet_key = nil
-      ENV['TRONPRINT_API_KEY'] = nil
+    it 'should return the brighter_planet_key config option' do
+      Tronprint.instance_variable_set :@brighter_planet_key, nil
       Tronprint.stub!(:config).and_return({ :brighter_planet_key => 'aaa' })
       Tronprint.brighter_planet_key.should == 'aaa'
     end
@@ -82,8 +76,24 @@ describe Tronprint do
   end
 
   describe '.default_config' do
+    before :each do
+      Tronprint.instance_variable_set :@default_config, nil
+    end
+    after :each do
+      ENV['TRONPRINT_API_KEY'] = nil
+      ENV['MONGOHQ_URL'] = nil
+    end
     it 'should return a default configuration' do
       Tronprint.default_config.should be_an_instance_of(Hash)
+    end
+    it 'should set the brighter_planet_key if ENV["TRONPRINT_API_KEY"] is set' do
+      ENV['TRONPRINT_API_KEY'] = 'abc123'
+      Tronprint.default_config[:brighter_planet_key].should == 'abc123'
+    end
+    it 'should use MongoHQ if ENV["MONGOHQ_URL"] is set' do
+      ENV['MONGOHQ_URL'] = 'mongodb://foo.com/bar'
+      Tronprint.default_config[:aggregator_options][:adapter].should == :mongodb
+      Tronprint.default_config[:aggregator_options][:url].should == 'mongodb://foo.com/bar'
     end
   end
 
