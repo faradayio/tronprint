@@ -50,6 +50,7 @@ If you are using Heroku and choose to use a different datastore than MongoHQ, or
 ## Support
 
 Support is available from Brighter Planet at the following locations:
+
 * via IRC at #brighterplanet on Freenode during normal US business hours.
 * via [Twitter](http://twitter.com/brighterplanet)
 * via [Email](mailto:support@brighterplanet.com)
