@@ -108,14 +108,14 @@ module Tronprint
   def default_config
     return @default_config unless @default_config.nil?
     @default_config = {
-      :application_name => File.basename(Dir.pwd),
-      :collection => 'tronprint'
+      :application_name => File.basename(Dir.pwd)
     }
     @default_config[:brighter_planet_key] = ENV['TRONPRINT_API_KEY'] if ENV['TRONPRINT_API_KEY']
     if ENV['MONGOHQ_URL']
       @default_config[:aggregator_options] = {
         :uri => ENV['MONGOHQ_URL'],
-        :adapter => :mongodb
+        :adapter => :mongodb,
+        :collection => 'tronprint'
       }
     end
     @default_config[:aggregator_options] ||= {
