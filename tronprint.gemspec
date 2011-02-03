@@ -4,10 +4,10 @@ require 'tronprint/version'
 
 Gem::Specification.new do |s|
   s.name = 'tronprint'
-  s.version = Tronprint::VERSION
+  s.version = "0.0.11"
 
   s.authors = ['Derek Kastner']
-  s.date = "2011-01-26"
+  s.date = "2011-02-03"
   s.description = %q{A gem for monitoring the carbon footprint of your ruby app}
   s.email = %q{dkastner@gmail.com}
   s.homepage = %q{http://github.com/brighterplanet/tronprint}
