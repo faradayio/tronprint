@@ -49,17 +49,19 @@ describe Tronprint do
 
   describe '.config' do
     it 'should return a configuration loaded from disk' do
-      Tronprint.stub!(:load_config).and_return nil
-      Tronprint.stub!(:default_config).and_return :foo => :bar
-      Tronprint.config.should == { :foo => :bar }
+      Tronprint.stub!(:load_config).and_return :foo => :bar
+      Tronprint.config.should include(:foo => :bar)
     end
     it 'should return a default configuration if no config file exists' do
-      Tronprint.stub!(:load_config).and_return :foo => :bar
-      Tronprint.config.should == { :foo => :bar }
+      Tronprint.stub!(:default_config).and_return :foo => :bar
+      Tronprint.config.should include(:foo => :bar)
     end
   end
 
   describe '.load_config' do
+    before :each do
+      Tronprint.instance_variable_set :@loaded_config, nil
+    end
     it 'should load a config file from cwd/config/tronprint.yml if it exists' do
       Dir.stub!(:pwd).and_return '/some/dir'
       File.stub!(:exist?).and_return true
@@ -71,7 +73,7 @@ describe Tronprint do
       Tronprint.instance_variable_set :@loaded_config, nil
       Dir.stub!(:pwd).and_return '/some/dir'
       File.stub!(:exist?).and_return false
-      Tronprint.load_config.should be_nil
+      Tronprint.load_config.should be_empty
     end
   end
 

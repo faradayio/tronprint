@@ -86,7 +86,7 @@ module Tronprint
 
   # The current configuration.
   def config
-    load_config || default_config
+    default_config.update load_config
   end
 
   def config=(val)
@@ -99,6 +99,7 @@ module Tronprint
     return @loaded_config unless @loaded_config.nil?
     path = File.expand_path('config/tronprint.yml', Dir.pwd)
     @loaded_config = YAML::load_file path if File.exist? path
+    @loaded_config ||= {}
   end
 
   # By default, the YAML adapter is used and aggregate statistics 
