@@ -64,6 +64,23 @@ tronprint with a Rails initializer:
     :collection => 'tronprint'
   }
 
+==== ActiveRecord
+
+If you'd like to use your Rails app's existing ActiveRecord datastore for 
+storing Tronprint statistics, simply add the following to a new file, 
+config/initializers/tronprint.rb:
+
+    Tronprint.aggregator_options = { :adapter => :active_record }
+
+Before you get started with Tronprint on ActiveRecord and you're using a 
+relational database, (e.g., mysql) then you need to create the table 
+Tronprint will use for storage. The easiest way to do this is add to 
+your Rakefile:
+
+    require 'tronprint/rake_tasks/active_record'
+
+Then, run `rake tronprint:moneta`.
+
 === Other Ruby Apps
 
 Tronprint will work with any Ruby app, but you have to do a little self-configuration.

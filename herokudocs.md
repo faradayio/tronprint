@@ -27,6 +27,24 @@ Add Tronprint and mongo (if using MongoHQ) to your Gemfile:
 
 Somewhere in your views, you can use the methods provided in [TronprintHelper](http://rubydoc.info/github/brighterplanet/tronprint/master/TronprintHelper) to display the site's total footprint, a link to the foot print calculation's methodology, and a CM1 badge.
 
+
+### Rails with ActiveRecord
+
+If you'd like to use your Rails app's existing ActiveRecord datastore for 
+storing Tronprint statistics, simply add the following to a new file, 
+config/initializers/tronprint.rb:
+
+    Tronprint.aggregator_options = { :adapter => :active_record }
+
+Before you get started with Tronprint on ActiveRecord and you're using a 
+relational database, (e.g., mysql) then you need to create the table 
+Tronprint will use for storage. The easiest way to do this is add to 
+your Rakefile:
+
+    require 'tronprint/rake_tasks/active_record'
+
+Then, run `rake tronprint:moneta`.
+
 ## Sinatra Configuration
 
 In your app.rb, add:

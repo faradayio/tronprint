@@ -37,6 +37,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency   'sandbox'
   s.add_runtime_dependency   'carbon', '~> 1.0.3'
   s.add_runtime_dependency 'i18n'
-  s.add_runtime_dependency 'dkastner-moneta'
+  s.add_runtime_dependency 'dkastner-moneta', '~> 1.0.3'
 end
 
