@@ -95,7 +95,7 @@ describe Tronprint do
     it 'should use MongoHQ if ENV["MONGOHQ_URL"] is set' do
       ENV['MONGOHQ_URL'] = 'mongodb://foo.com/bar'
       Tronprint.default_config[:aggregator_options][:adapter].should == :mongodb
-      Tronprint.default_config[:aggregator_options][:url].should == 'mongodb://foo.com/bar'
+      Tronprint.default_config[:aggregator_options][:uri].should == 'mongodb://foo.com/bar'
     end
   end
 
