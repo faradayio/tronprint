@@ -7,13 +7,6 @@ if defined?(Rails)
   require 'tronprint/rails'
 end
 
-# "The Grid: A digital frontier. I tried to picture clusters of information
-# as they moved through the computer. Ships, motorcycles... Were the circuits
-# like freeways? I kept dreaming of a world I'd never see. And then, one day,
-# I got in!"
-#
-# -Floyd
-#
 # Tronprint helps you visualize the carbon footprint of all of those little 
 # Ruby processes zooming around on your system in their light cycles. You 
 # can then show this footprint to the world of the Users via Rails helpers.
