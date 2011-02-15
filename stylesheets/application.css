@@ -3,6 +3,66 @@
 
 body {
   font-family: "Brighter Planet", sans-serif;
-  background: #111;
-  color: #999;
+  background: #3d0000 url(images/bg.png) repeat-x 0 0;
+  color: #aaa;
 }
+
+header, article {
+  width: 540px;
+  background: #4a0e0e;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+header {
+  text-shadow: 0 1px 0 black, 0 -1px 0 rgba(255,255,255,0.2);
+}
+
+header h1 {
+  background: url(images/logo.png) no-repeat 0 50%;
+  padding: 20px 0 20px 80px;
+  height: 70px;
+  line-height: 70px;
+  font-weight: normal;
+  font-size: 21px;
+  color: #ddd;
+}
+
+header h2 {
+  position: absolute;
+  left: 100px;
+  top: 70px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+article {
+  font-size: 13px;
+}
+
+article h1 {
+  font-size: 16px;
+  font-weight: normal;
+  border-bottom: 1px solid #974f4f;
+  padding: 0 0 5px;
+  margin: 0 0 10px;
+}
+
+figure {
+  margin: 15px 0;
+}
+
+pre {
+  background: #110000;
+  margin: 0 -20px;
+  padding: 20px;
+}
+
+figcaption {
+  font-size: 11px;
+  margin: 0 0 5px;
+  color: #974f4f;
+  text-shadow: 0 1px 0 #3d0000;
+}
+
