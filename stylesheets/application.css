@@ -1,5 +1,7 @@
 @font-face { font-family: "Brighter Planet"; src: url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro.eot"); src: local("☺"), url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro.woff") format("woff"), url("http://brighterplanet.com/stylesheets/fonts/KievitOT-Regular.otf") format("opentype"); font-weight: normal; font-style: normal; }
 @font-face { font-family: "Brighter Planet"; src: url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro-Bold.eot"); src: local("☺"), url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro-Bold.woff") format("woff"), url("http://brighterplanet.com/stylesheets/fonts/KievitOT-Bold.otf") format("opentype"); font-weight: bold; font-style: normal; }
+@font-face { font-family: "Brighter Planet"; src: url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro-Ita.eot"); src: local("☺"), url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro-Ita.woff") format("woff"), url("http://brighterplanet.com/stylesheets/fonts/KievitOT-Ita.otf") format("opentype"); font-weight: normal; font-style: italic; }
+@font-face { font-family: "Brighter Planet"; src: url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro-BoldIta.eot"); src: local("☺"), url("http://brighterplanet.com/stylesheets/fonts/KievitWebPro-BoldIta.woff") format("woff"), url("http://brighterplanet.com/stylesheets/fonts/KievitOT-BoldIta.otf") format("opentype"); font-weight: bold; font-style: italic; }
 
 body {
   font-family: "Brighter Planet", sans-serif;
@@ -7,7 +9,7 @@ body {
   color: #aaa;
 }
 
-header, article {
+header, article, footer {
   width: 540px;
   margin: 0 auto;
   padding: 0 20px;
@@ -35,8 +37,9 @@ header h2 {
 
 article {
   background: #4a0e0e;
-  font-size: 13px;
+  font-size: 14px;
   padding-top: 20px;
+  padding-bottom: 20px;
   -moz-box-shadow: 0 0 10px black;
   -webkit-box-shadow: 0 0 10px black;
   box-shadow: 0 0 10px black;
@@ -45,12 +48,20 @@ article {
   border-radius: 10px 10px 0 0;
 }
 
-article h1 {
+article h1, article h2 {
   font-size: 16px;
   font-weight: normal;
   border-bottom: 1px solid #974f4f;
   padding: 0 0 5px;
   margin: 0 0 10px;
+}
+
+article h2 {
+  margin-top: 20px;
+}
+
+article p+p {
+  margin-top: 10px;
 }
 
 figure {
@@ -70,3 +81,41 @@ figcaption {
   text-shadow: 0 1px 0 #3d0000;
 }
 
+blockquote {
+  background: #974f4f;
+  margin: 20px -24px;
+  padding: 10px;
+  font-style: italic;
+  font-size: 18px;
+  color: #3d0000;
+  text-shadow: 0 -1px 1px rgba(255,255,255,0.25);
+}
+
+#support {
+  float: right;
+  width: 120px;
+  padding: 20px;
+  background: #100;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  margin: 0 0 0 15px;
+}
+
+#support h3 {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+#support ul {
+  list-style: square;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
