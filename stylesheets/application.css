@@ -9,36 +9,40 @@ body {
 
 header, article {
   width: 540px;
-  background: #4a0e0e;
   margin: 0 auto;
   padding: 0 20px;
-  position: relative;
 }
 
 header {
-  text-shadow: 0 1px 0 black, 0 -1px 0 rgba(255,255,255,0.2);
+  background: url(images/logo.png) no-repeat 50% 27px;
+  padding: 110px 0 30px;
+  text-align: center;
+  color: #3d0000;
 }
 
 header h1 {
-  background: url(images/logo.png) no-repeat 0 50%;
-  padding: 20px 0 20px 80px;
-  height: 70px;
-  line-height: 70px;
   font-weight: normal;
-  font-size: 21px;
-  color: #ddd;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 7px;
+  text-shadow: 0 1px 0 black, 0 -1px 0 rgba(255,255,255,0.2);
 }
 
 header h2 {
-  position: absolute;
-  left: 100px;
-  top: 70px;
   font-size: 12px;
   font-weight: normal;
 }
 
 article {
+  background: #4a0e0e;
   font-size: 13px;
+  padding-top: 20px;
+  -moz-box-shadow: 0 0 10px black;
+  -webkit-box-shadow: 0 0 10px black;
+  box-shadow: 0 0 10px black;
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 
 article h1 {
