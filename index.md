@@ -64,7 +64,7 @@ Then, in your view:
 
 ## Using Tronprint with Heroku
 
-A [Tronprint Heroku add-on](http://addons.heroku.com/tronprint) is currently in private beta. Follow [@brighterplanet](http://twitter.com/brighterplanet) for updates.
+A [Tronprint Heroku add-on](http://addons.heroku.com/tronprint) is currently in private beta. Follow [@brighterplanet](http://twitter.com/brighterplanet) for updates. Private beta participants can see our [Heroku docs](https://github.com/brighterplanet/tronprint/blob/master/herokudocs.md) for detailed instructions.
 
 ## Wait, self-aware applications? Is this the singularity?
 
