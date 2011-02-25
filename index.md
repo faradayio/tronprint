@@ -58,9 +58,9 @@ Add the Tronprint helper to your controller(s):
 <figure>
   <figcaption>app/controllers/foos_controller.rb</figcaption>
 {% highlight ruby %}
-  class FoosController < ApplicationController
-    helper TronprintHelper
-  end
+class FoosController < ApplicationController
+  helper TronprintHelper
+end
 {% endhighlight %}
 </figure>
 

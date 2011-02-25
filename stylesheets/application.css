@@ -72,6 +72,7 @@ pre {
   background: #110000;
   margin: 0 -20px;
   padding: 20px;
+  white-space: pre;
 }
 
 figcaption {
