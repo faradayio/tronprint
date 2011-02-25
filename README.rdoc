@@ -43,6 +43,12 @@ In order to display your application's footprint, you can use Tronprint's
 built-in view helper: TronprintHelper. Feel free to cache your footprint 
 to minimize the number of API requests made to CM1.
 
+In whichever controller(s) that will use TronprintHelper (or in `ApplicationController`), simply require the helper:
+
+  class FoosController
+    helper TronprintHelper
+  end
+
 ==== Heroku
 
 Tronprint is available as a Heroku add-on. Add tronprint to your app, and 

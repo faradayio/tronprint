@@ -27,6 +27,11 @@ Add Tronprint and mongo (if using MongoHQ) to your Gemfile:
 
 Somewhere in your views, you can use the methods provided in [TronprintHelper](http://rubydoc.info/github/brighterplanet/tronprint/master/TronprintHelper) to display the site's total footprint, a link to the foot print calculation's methodology, and a CM1 badge.
 
+In whichever controller(s) that will use TronprintHelper (or in `ApplicationController`), simply require the helper:
+
+    class FoosController
+      helper TronprintHelper
+    end
 
 ### Rails with ActiveRecord
 
