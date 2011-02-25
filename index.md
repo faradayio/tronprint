@@ -53,6 +53,17 @@ Tronprint.brighter_planet_key = 'ABC123'
 {% endhighlight %}
 </figure>
 
+Add the Tronprint helper to your controller(s):
+
+<figure>
+  <figcaption>app/controllers/foos_controller.rb</figcaption>
+{% highlight ruby %}
+  class FoosController < ApplicationController
+    helper TronprintHelper
+  end
+{% endhighlight %}
+</figure>
+
 Then, in your view:
 
 <figure>
@@ -61,6 +72,14 @@ Then, in your view:
 <%= total_footprint %> kg CO<sub>2</sub>e
 {% endhighlight %}
 </figure>
+
+### Helper Methods
+
+TronprintHelper comes with a few helper methods:
+
+* `cm1_badge` - Displays a CM1 badge like the one at the bottom of this page.
+* `total_footprint` - The total footprint of your application, in kilograms.
+* `footprint_methodology` - A URL for a live methodology statement reporting how your footprint was calculated. [Example](http://carbon.brighterplanet.com/computations?duration=128372)
 
 ## Using Tronprint with Heroku
 
