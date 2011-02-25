@@ -33,6 +33,14 @@ In whichever controller(s) that will use TronprintHelper (or in `ApplicationCont
       helper TronprintHelper
     end
 
+### Helper Methods
+
+TronprintHelper comes with a few helper methods:
+
+* `cm1_badge` - Displays a CM1 badge like the one at the bottom of this page.
+* `total_footprint` - The total footprint of your application, in kilograms.
+* `footprint_methodology` - A URL for a live methodology statement reporting how your footprint was calculated. [Example](http://carbon.brighterplanet.com/computations?duration=128372)
+
 ### Rails with ActiveRecord
 
 If you'd like to use your Rails app's existing ActiveRecord datastore for 
