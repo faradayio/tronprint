@@ -53,6 +53,56 @@ module Tronprint
     # Increment the total statistic by the given +value+, 
     # specified by the given +key+.
     def update(key, value)
+      update_total(key, value)
+      update_yearly(key, value)
+      update_monthly(key, value)
+      update_daily(key, value)
+      update_hourly(key, value)
+    end
+
+    def path(*args)
+      args.join('/')
+    end
+
+  private
+
+    def current_year
+      Time.now.year.to_s
+    end
+    def current_month
+      sprintf('%02d', Time.now.month)
+    end
+    def current_day
+      sprintf('%02d', Time.now.day)
+    end
+    def current_hour
+      sprintf('%02d', Time.now.hour)
+    end
+
+    def update_total(key, value)
+      update_entry key, value
+    end
+
+    def update_yearly(key, value)
+      update_entry path(key, 'by_date', current_year), value
+    end
+
+    def update_monthly(key, value)
+      update_entry path(key, 'by_date', current_year, current_month), value
+    end
+
+    def update_daily(key, value)
+      update_entry path(key, 'by_date', current_year, current_month, current_day), value
+    end
+
+    def update_hourly(key, value)
+      update_entry path(key, 'by_date', current_year, current_month,
+                        current_day, current_hour),
+                   value
+      update_entry path(key, 'hourly', current_hour), value
+    end
+
+    def update_entry(key, value)
       old_value = self[key]
       new_value = old_value ? old_value + value : value
       self[key] = new_value
