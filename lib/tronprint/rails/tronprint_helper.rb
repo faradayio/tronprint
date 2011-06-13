@@ -5,6 +5,12 @@ module TronprintHelper
   def total_footprint
     emission_estimate.to_f
   end
+
+  # The total amount of electricity used by the application.
+  def total_electricity
+    emission_estimate.electricity_use.to_f
+  end
+
   # A URL for the methodology statement of the emissions calculation.
   def footprint_methodology
     emission_estimate.methodology
