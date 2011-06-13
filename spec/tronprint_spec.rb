@@ -8,18 +8,18 @@ describe Tronprint do
   end
 
   describe '.run' do
-    it 'should start up each monitor' do
+    it 'starts up each monitor' do
       Tronprint.should_receive :cpu_monitor
       Tronprint.run
     end
   end
 
   describe '.cpu_monitor' do
-    it 'should start the CPU monitor' do
+    it 'starts the CPU monitor' do
       Tronprint::CPUMonitor.should_receive(:new).and_return mock_cpu
       Tronprint.cpu_monitor
     end
-    it 'should return the CPU monitor instance' do
+    it 'returns the CPU monitor instance' do
       Tronprint.instance_variable_set :@cpu_monitor, nil
       Tronprint::CPUMonitor.stub!(:new).and_return mock_cpu
       Tronprint.cpu_monitor.should == mock_cpu
@@ -27,7 +27,7 @@ describe Tronprint do
   end
 
   describe '.emission_estimate' do
-    it 'should send the zip code and total duration to the application' do
+    it 'sends the zip code and total duration to the application' do
       Tronprint.instance_variable_set(:@emission_estimate, nil)
       Tronprint.zip_code = 48915
       Tronprint.brighter_planet_key = 'ABC123'
@@ -40,7 +40,7 @@ describe Tronprint do
   end
 
   describe '.brighter_planet_key' do
-    it 'should return the brighter_planet_key config option' do
+    it 'returns the brighter_planet_key config option' do
       Tronprint.instance_variable_set :@brighter_planet_key, nil
       Tronprint.stub!(:config).and_return({ :brighter_planet_key => 'aaa' })
       Tronprint.brighter_planet_key.should == 'aaa'
@@ -48,11 +48,11 @@ describe Tronprint do
   end
 
   describe '.config' do
-    it 'should return a configuration loaded from disk' do
+    it 'returns a configuration loaded from disk' do
       Tronprint.stub!(:load_config).and_return :foo => :bar
       Tronprint.config.should include(:foo => :bar)
     end
-    it 'should return a default configuration if no config file exists' do
+    it 'returns a default configuration if no config file exists' do
       Tronprint.stub!(:default_config).and_return :foo => :bar
       Tronprint.config.should include(:foo => :bar)
     end
@@ -62,14 +62,14 @@ describe Tronprint do
     before :each do
       Tronprint.instance_variable_set :@loaded_config, nil
     end
-    it 'should load a config file from cwd/config/tronprint.yml if it exists' do
+    it 'loads a config file from cwd/config/tronprint.yml if it exists' do
       Dir.stub!(:pwd).and_return '/some/dir'
       File.stub!(:exist?).and_return true
       YAML.should_receive(:load_file).with('/some/dir/config/tronprint.yml').
         and_return :my => :config
       Tronprint.load_config.should == { :my => :config }
     end
-    it 'should return nil if no config file exists' do
+    it 'returns nil if no config file exists' do
       Tronprint.instance_variable_set :@loaded_config, nil
       Dir.stub!(:pwd).and_return '/some/dir'
       File.stub!(:exist?).and_return false
@@ -85,14 +85,14 @@ describe Tronprint do
       ENV['TRONPRINT_API_KEY'] = nil
       ENV['MONGOHQ_URL'] = nil
     end
-    it 'should return a default configuration' do
+    it 'returns a default configuration' do
       Tronprint.default_config.should be_an_instance_of(Hash)
     end
-    it 'should set the brighter_planet_key if ENV["TRONPRINT_API_KEY"] is set' do
+    it 'sets the brighter_planet_key if ENV["TRONPRINT_API_KEY"] is set' do
       ENV['TRONPRINT_API_KEY'] = 'abc123'
       Tronprint.default_config[:brighter_planet_key].should == 'abc123'
     end
-    it 'should use MongoHQ if ENV["MONGOHQ_URL"] is set' do
+    it 'uses MongoHQ if ENV["MONGOHQ_URL"] is set' do
       ENV['MONGOHQ_URL'] = 'mongodb://foo.com/bar'
       Tronprint.default_config[:aggregator_options][:adapter].should == :mongodb
       Tronprint.default_config[:aggregator_options][:uri].should == 'mongodb://foo.com/bar'
@@ -100,7 +100,7 @@ describe Tronprint do
   end
 
   describe '.total_duration' do
-    it 'should look up the total for the application and return number of hours' do
+    it 'looks up the total for the application and return number of hours' do
       mock_cpu = mock Tronprint::CPUMonitor, :key => 'groove/application/cpu_time'
       Tronprint.instance_variable_set :@cpu_monitor, mock_cpu
       Tronprint.application_name = 'groove'
