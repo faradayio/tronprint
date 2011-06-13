@@ -2,6 +2,7 @@ require 'yaml'
 require 'tronprint/aggregator'
 require 'tronprint/application'
 require 'tronprint/cpu_monitor'
+require 'tronprint/traffic_monitor'
 
 if defined?(Rails)
   require 'tronprint/rails'
