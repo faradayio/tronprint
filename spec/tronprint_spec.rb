@@ -16,6 +16,7 @@ describe Tronprint do
 
   describe '.cpu_monitor' do
     it 'starts the CPU monitor' do
+      Tronprint.instance_variable_set :@cpu_monitor, nil
       Tronprint::CPUMonitor.should_receive(:new).and_return mock_cpu
       Tronprint.cpu_monitor
     end
@@ -23,19 +24,6 @@ describe Tronprint do
       Tronprint.instance_variable_set :@cpu_monitor, nil
       Tronprint::CPUMonitor.stub!(:new).and_return mock_cpu
       Tronprint.cpu_monitor.should == mock_cpu
-    end
-  end
-
-  describe '.emission_estimate' do
-    it 'sends the zip code and total duration to the application' do
-      Tronprint.instance_variable_set(:@emission_estimate, nil)
-      Tronprint.zip_code = 48915
-      Tronprint.brighter_planet_key = 'ABC123'
-      Tronprint.stub!(:total_duration).and_return 28.7
-      Tronprint::Application.should_receive(:new).
-        with(:zip_code => 48915, :duration => 28.7, :brighter_planet_key => 'ABC123').
-        and_return mock(Object, :emission_estimate => nil)
-      Tronprint.emission_estimate
     end
   end
 
@@ -96,16 +84,6 @@ describe Tronprint do
       ENV['MONGOHQ_URL'] = 'mongodb://foo.com/bar'
       Tronprint.default_config[:aggregator_options][:adapter].should == :mongodb
       Tronprint.default_config[:aggregator_options][:uri].should == 'mongodb://foo.com/bar'
-    end
-  end
-
-  describe '.total_duration' do
-    it 'looks up the total for the application and return number of hours' do
-      mock_cpu = mock Tronprint::CPUMonitor, :key => 'groove/application/cpu_time'
-      Tronprint.instance_variable_set :@cpu_monitor, mock_cpu
-      Tronprint.application_name = 'groove'
-      Tronprint.aggregator.update 'groove/application/cpu_time', 5.0
-      Tronprint.total_duration.should be_within(0.00001).of(0.00138)
     end
   end
 end

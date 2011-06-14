@@ -3,6 +3,7 @@ require 'tronprint/aggregator'
 require 'tronprint/application'
 require 'tronprint/cpu_monitor'
 require 'tronprint/traffic_monitor'
+require 'tronprint/statistics'
 
 if defined?(Rails)
   require 'tronprint/rails'
@@ -78,9 +79,9 @@ module Tronprint
     @traffic_monitor ||= TrafficMonitor.new aggregator, application_name
   end
 
-  # Fetch the total amount of CPU time (in hours) used by the application.
-  def total_duration
-    aggregator[cpu_monitor.key] / 3600
+  # The Tronprint::Statistics interface
+  def statistics
+    @statistics ||= Statistics.new aggregator, cpu_monitor
   end
 
   # The current configuration.
@@ -122,14 +123,5 @@ module Tronprint
       :path => File.expand_path('tronprint_stats.yml', Dir.pwd)
     }
     @default_config
-  end
-
-  # Calculate emissions using aggregated data. A call is made to 
-  # Brighter Planet's CM1 emission estimate service. Specifically,
-  # the call is made to the {computation emitter}[http://carbon.brighterplanet.com/models/computation]
-  def emission_estimate
-    app = Application.new :zip_code => zip_code, :duration => total_duration, 
-      :brighter_planet_key => brighter_planet_key
-    app.emission_estimate
   end
 end
