@@ -72,4 +72,31 @@ describe Tronprint::Aggregator do
       aggregator['foo/bar/hourly/00'].should be_within(0.01).of(110.2)
     end
   end
+
+  describe '#range_total' do
+    before :each do
+      [
+        '2011-06-02 13:01:00','2011-06-02 14:01:00','2011-06-02 15:01:00',
+        '2011-06-02 16:01:00','2011-06-02 18:01:00','2011-06-02 19:01:00',
+        '2011-06-02 19:01:00','2011-06-02 20:01:00','2011-06-02 21:01:00',
+      ].each do |time|
+        Timecop.freeze Time.parse(time)
+        aggregator.update('foozle', 1)
+      end
+      Timecop.return
+    end
+
+    it 'returns a total for a given range' do
+      result = aggregator.range_total('foozle', Time.parse('2011-06-02 18:01:00'), Time.parse('2011-06-02 20:01:00'))
+      result.should == 4
+    end
+    it 'counts missing hours as 0' do
+      result = aggregator.range_total('foozle', Time.parse('2011-06-02 01:01:00'), Time.parse('2011-06-02 04:01:00'))
+      result.should == 0
+    end
+    it 'counts missing hours as 0 when a range has partial data' do
+      result = aggregator.range_total('foozle', Time.parse('2011-06-02 16:01:00'), Time.parse('2011-06-02 18:01:00'))
+      result.should == 2
+    end
+  end
 end

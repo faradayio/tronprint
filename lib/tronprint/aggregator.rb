@@ -66,19 +66,44 @@ module Tronprint
       args.join('/')
     end
 
+    def range_total(key, from, to)
+      raise "Invalid range" if from > to
+      total = 0
+      current = from
+      while current <= to
+        hourly_key = hourly_path(key, year(current), month(current), day(current), hour(current))
+        total += self[hourly_key].to_f
+        current = current + 3600
+      end
+
+      total
+    end
+
   private
 
+    def year(time)
+      time.year.to_s
+    end
     def current_year
-      Time.now.year.to_s
+      year(Time.now)
+    end
+    def month(time)
+      sprintf('%02d', time.month)
     end
     def current_month
-      sprintf('%02d', Time.now.month)
+      month(Time.now)
+    end
+    def day(time)
+      sprintf('%02d', time.day)
     end
     def current_day
-      sprintf('%02d', Time.now.day)
+      day(Time.now)
+    end
+    def hour(time)
+      sprintf('%02d', time.hour)
     end
     def current_hour
-      sprintf('%02d', Time.now.hour)
+      hour(Time.now)
     end
 
     def update_total(key, value)
@@ -97,8 +122,11 @@ module Tronprint
       update_entry path(key, 'by_date', current_year, current_month, current_day), value
     end
 
+    def hourly_path(key, year, month, day, hour)
+      path(key, 'by_date', year, month, day, hour)
+    end
     def update_hourly(key, value)
-      update_entry path(key, 'by_date', current_year, current_month,
+      update_entry hourly_path(key, current_year, current_month,
                         current_day, current_hour),
                    value
       update_entry path(key, 'hourly', current_hour), value
