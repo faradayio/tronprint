@@ -15,6 +15,7 @@ describe Tronprint::TrafficMonitor do
       aggregator['my_app/requests/by_date/2011/06/02'].should == 2
       aggregator['my_app/requests/by_date/2011/06/02/13'].should == 2
       aggregator['my_app/requests/hourly/13'].should == 2
+      Timecop.return
     end
     it 'increments the toal recorded requests' do
       traffic_monitor.increment
