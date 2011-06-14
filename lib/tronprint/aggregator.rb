@@ -9,6 +9,8 @@ module Tronprint
   # {moneta}[http://github.com/wycats/moneta] will work.
   class Aggregator < Delegator
 
+    attr_accessor :adapter
+
     # Initialize the Aggregator with the following options:
     # +adapter+:: The underscore-ized name of the moneta class to use.
     # 
@@ -16,17 +18,17 @@ module Tronprint
     # You'll have to read {moneda's source code}[https://github.com/wycats/moneta/tree/master/lib/moneta/adapters]
     # for options needed by your desired adapter.
     def initialize(options = {})
-      adapter_underscored = options.delete :adapter
-      adapter_underscored ||= 'pstore'
-      adapter_underscored = adapter_underscored.to_s.downcase
+      self.adapter = options.delete :adapter
+      self.adapter ||= 'pstore'
+      self.adapter = self.adapter.to_s.downcase
       begin
-        require "moneta/#{adapter_underscored}"
-        klass = Moneta.const_get adapter_constant(adapter_underscored)
+        require "moneta/#{self.adapter}"
+        klass = Moneta.const_get adapter_constant
       rescue LoadError # Bundler hack
-        require "moneta/adapters/#{adapter_underscored}"
-        klass = Moneta::Adapters.const_get adapter_constant(adapter_underscored)
+        require "moneta/adapters/#{self.adapter}"
+        klass = Moneta::Adapters.const_get adapter_constant
       end
-      args = adapter_underscored == 'memory' ? [] : [options]
+      args = self.adapter == 'memory' ? [] : [options]
       instance = klass.new(*args)
       __setobj__ instance  # required in Ruby 1.8.7
       super instance
@@ -40,13 +42,13 @@ module Tronprint
     end
 
     # The class name of the desired moneta adapter
-    def adapter_constant(adapter_underscored)
-      case adapter_underscored
+    def adapter_constant
+      case self.adapter
       when 'pstore' then 'PStore'
       when 'yaml' then 'YAML'
       when 'mongodb' then 'MongoDB'
       else
-        adapter_underscored.split('_').map(&:capitalize).join('')
+        self.adapter.split('_').map(&:capitalize).join('')
       end
     end
 

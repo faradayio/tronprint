@@ -11,6 +11,9 @@ module Tronprint
     end
 
     config.after_initialize do
+      if Tronprint.aggregator.adapter == 'active_record' && !Moneta::Adapters::ActiveRecord::Store.table_exists?
+        Tronprint.aggregator.migrate
+      end
       Tronprint.run
     end
 
