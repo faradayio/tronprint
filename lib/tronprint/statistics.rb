@@ -15,6 +15,11 @@ module Tronprint
       aggregator[cpu_monitor.key] / 3600
     end
 
+    # Fetch total CPU time for the past two hours
+    def two_hour_duration
+      aggregator.range_total(cpu_monitor.key, Time.now - 7200, Time.now)
+    end
+
     # Calculate emissions using aggregated data. A call is made to 
     # Brighter Planet's CM1 emission estimate service. Specifically,
     # the call is made to the {computation emitter}[http://carbon.brighterplanet.com/models/computation]
