@@ -73,6 +73,11 @@ module Tronprint
     @cpu_monitor ||= CPUMonitor.new aggregator, application_name
   end
 
+  # The Tronprint::TrafficMonitor instance
+  def traffic_monitor
+    @traffic_monitor ||= TrafficMonitor.new aggregator, application_name
+  end
+
   # Fetch the total amount of CPU time (in hours) used by the application.
   def total_duration
     aggregator[cpu_monitor.key] / 3600
