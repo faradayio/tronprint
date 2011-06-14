@@ -29,13 +29,8 @@ describe Tronprint::TrafficMonitor do
       traffic_monitor.requests.should == 0
     end
     it 'returns the total number of requests' do
-      traffic_monitor.instance_variable_set :@requests, 13
+      aggregator['my_app/requests'] = 13
       traffic_monitor.requests.should == 13
-    end
-    it 'loads total requests from the datastore if not initialized' do
-      aggregator.update 'my_app/requests', 47
-      traffic_monitor.instance_variable_set :@requests, nil
-      traffic_monitor.requests.should == 47
     end
   end
 end
