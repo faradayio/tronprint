@@ -25,11 +25,15 @@ module TronprintHelper
 
     two_hr_emissions = Tronprint.statistics.
       emission_estimate(Time.now - 7200, Time.now).to_f
-    rate = two_hr_emissions / 120  # lbs CO2 per minute over last 2 hours
-    rate = pounds_with_precision rate
+    rate = two_hr_emissions / 120  # kgs CO2 per minute over last 2 hours
+    rate = rate < 0.0001 ? "< 0.0001" : pounds_with_precision(rate)
 
     text = <<-HTML
-      Footprint: #{total_electricity.to_i}W | #{footprint}lbs CO<sub>2</sub>e | #{rate}lbs CO<sub>2</sub>e/min
+      <p class="cm1-footprint">
+        <span class="cm1-total-footprint">Total footprint: #{total_electricity.to_i}W, #{footprint}lbs CO<sub>2</sub>e</span>
+        |
+        <span class="cm1-current-footprint">Current footprint: #{rate}lbs CO<sub>2</sub>e/min</span>
+      </p>
     HTML
 
     text.html_safe
