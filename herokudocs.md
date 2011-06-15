@@ -37,9 +37,9 @@ In whichever controller(s) that will use TronprintHelper (or in `ApplicationCont
 
 TronprintHelper comes with a few helper methods:
 
-* `cm1_badge` - Displays a CM1 badge like the one at the bottom of this page.
-* `total_footprint` - The total footprint of your application, in kilograms.
-* `footprint_methodology` - A URL for a live methodology statement reporting how your footprint was calculated. [Example](http://carbon.brighterplanet.com/computations?duration=128372)
+* `footprint_badge` - A badge that displays total footprint and current rate of emissions for your app.
+* `cm1_badge` - Displays a CM1 badge
+* `footprint_methodology` - A URL for a live methodology statement reporting how your total footprint was calculated. {Example}[http://carbon.brighterplanet.com/computations?duration=128372]
 
 ### Rails with ActiveRecord
 
@@ -49,14 +49,14 @@ config/initializers/tronprint.rb:
 
     Tronprint.aggregator_options = { :adapter => :active_record }
 
-Before you get started with Tronprint on ActiveRecord and you're using a 
-relational database, (e.g., mysql) then you need to create the table 
-Tronprint will use for storage. The easiest way to do this is add to 
-your Rakefile:
+Tronprint automatically creates a storage table, `moneta_store` the next time your app
+is run.
+
+If you need to create the table manually, add to your Rakefile:
 
     require 'tronprint/rake_tasks/active_record'
 
-Then, run `rake tronprint:moneta`.
+And run `rake tronprint:moneta`
 
 ## Sinatra Configuration
 
