@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version = Tronprint::VERSION
 
   s.authors = ['Derek Kastner']
-  s.date = "2011-02-03"
+  s.date = "2011-06-15"
   s.description = %q{A gem for monitoring the carbon footprint of your ruby app}
   s.email = %q{dkastner@gmail.com}
   s.homepage = %q{http://github.com/brighterplanet/tronprint}
