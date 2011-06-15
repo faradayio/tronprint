@@ -10,7 +10,7 @@ describe TronprintHelper do
 
   describe '#total_footprint' do
     it 'returns the total footprint' do
-      Tronprint.statistics.stub!(:total_footprint).and_return 89.4
+      Tronprint.statistics.stub!(:emission_estimate).and_return mock(Object, :to_f => 89.4)
       helper.total_footprint.should == 89.4
     end
   end
