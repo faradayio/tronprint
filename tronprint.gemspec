@@ -30,6 +30,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Ruby process carbon footprinter}
 
+  s.add_development_dependency 'actionpack', '~> 3'
+  s.add_development_dependency 'activesupport', '~> 3'
   s.add_development_dependency 'cucumber'
   s.add_development_dependency 'bueller', '~> 0.0.2'
   s.add_development_dependency 'rake'
