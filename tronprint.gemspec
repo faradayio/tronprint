@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 2.0'
   s.add_development_dependency 'sandbox'
   s.add_development_dependency 'timecop'
-  s.add_runtime_dependency   'carbon', '~> 1.0.3'
+  s.add_runtime_dependency   'carbon', '~> 1.1.1'
   s.add_runtime_dependency 'i18n'
   s.add_runtime_dependency 'dkastner-moneta', '~> 1.0.5'
 end
