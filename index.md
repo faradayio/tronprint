@@ -77,13 +77,13 @@ Then, in your view:
 
 TronprintHelper comes with a few helper methods:
 
-* `cm1_badge` - Displays a CM1 badge like the one at the bottom of this page.
-* `total_footprint` - The total footprint of your application, in kilograms.
-* `footprint_methodology` - A URL for a live methodology statement reporting how your footprint was calculated. [Example](http://carbon.brighterplanet.com/computations?duration=128372)
+* `footprint_badge` - A badge that displays total footprint and current rate of emissions for your app.
+* `cm1_badge` - Displays a CM1 badge
+* `footprint_methodology` - A URL for a live methodology statement reporting how your total footprint was calculated. {Example}[http://carbon.brighterplanet.com/computations?duration=128372]
 
 ## Using Tronprint with Heroku
 
-A [Tronprint Heroku add-on](http://addons.heroku.com/tronprint) is currently in private beta. Follow [@brighterplanet](http://twitter.com/brighterplanet) for updates. Private beta participants can see our [Heroku docs](https://github.com/brighterplanet/tronprint/blob/master/herokudocs.md) for detailed instructions.
+A [Tronprint Heroku add-on](http://addons.heroku.com/tronprint) is currently in public beta. Follow [@brighterplanet](http://twitter.com/brighterplanet) for updates. See the [Heroku docs](https://github.com/brighterplanet/tronprint/blob/master/herokudocs.md) for detailed instructions.
 
 ## Wait, self-aware applications? Is this the singularity?
 
