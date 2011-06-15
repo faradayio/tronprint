@@ -15,16 +15,18 @@ module Tronprint
       aggregator[cpu_monitor.key] / 3600
     end
 
-    # Fetch total CPU time for the past two hours
-    def two_hour_duration
-      aggregator.range_total(cpu_monitor.key, Time.now - 7200, Time.now)
+    # Fetch total CPU time for a given range
+    def range_duration(from, to)
+      aggregator.range_total cpu_monitor.key, from, to
     end
 
     # Calculate emissions using aggregated data. A call is made to 
     # Brighter Planet's CM1 emission estimate service. Specifically,
     # the call is made to the {computation emitter}[http://carbon.brighterplanet.com/models/computation]
-    def emission_estimate
-      app = Application.new :zip_code => Tronprint.zip_code, :duration => total_duration, 
+    def emission_estimate(from = nil, to = nil)
+      duration = from.nil? ? total_duration : range_duration(from, to)
+
+      app = Application.new :zip_code => Tronprint.zip_code, :duration => duration, 
         :brighter_planet_key => Tronprint.brighter_planet_key
       app.emission_estimate
     end

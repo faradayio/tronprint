@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Tronprint::Statistics do
   let(:aggregator) { Tronprint::Aggregator.new :adapter => :memory }
-  let(:cpu_monitor) { mock Tronprint::CPUMonitor, :total_recorded_cpu_time => 27.2 }
+  let(:cpu_monitor) { mock Tronprint::CPUMonitor, :total_recorded_cpu_time => 27.2,
+                          :key => 'myapp' }
   let(:statistics) { Tronprint::Statistics.new aggregator, cpu_monitor }
   
   before do
@@ -16,12 +17,19 @@ describe Tronprint::Statistics do
   end
 
   describe '#emission_estimate' do
-    it 'sends the zip code and total duration to the application' do
+    it 'sends uses total duration if no range is given' do
       statistics.stub!(:total_duration).and_return 28.7
       Tronprint::Application.should_receive(:new).
         with(:zip_code => 48915, :duration => 28.7, :brighter_planet_key => 'ABC123').
         and_return mock(Object, :emission_estimate => nil)
       statistics.emission_estimate
+    end
+    it 'sends a duration range if given' do
+      statistics.stub!(:range_duration).and_return 18.7
+      Tronprint::Application.should_receive(:new).
+        with(:zip_code => 48915, :duration => 18.7, :brighter_planet_key => 'ABC123').
+        and_return mock(Object, :emission_estimate => nil)
+      statistics.emission_estimate(Time.now - 7200, Time.now)
     end
   end
 
