@@ -39,6 +39,11 @@ module TronprintHelper
     text.html_safe
   end
 
+  # A link to more information about Tronprint
+  def tronprint_badge
+    '<p class="cm1-tronprint-link">Footprint calculated by <a href="http://brighterplanet.github.com/tronprint">Tronprint</a></p>'.html_safe
+  end
+
   # Let the world know that your app is powered by CM1
   def cm1_badge
     %q{<script type="text/javascript" src="http://carbon.brighterplanet.com/badge.js"></script>}.
