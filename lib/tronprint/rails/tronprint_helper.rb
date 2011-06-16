@@ -30,7 +30,7 @@ module TronprintHelper
 
     text = <<-HTML
       <p class="cm1-footprint">
-        <span class="cm1-total-footprint">Total footprint: #{total_electricity.to_i}W, #{footprint}lbs CO<sub>2</sub>e</span>
+        <span class="cm1-total-footprint">Total site footprint: #{total_electricity.to_i}W, #{footprint}lbs CO<sub>2</sub>e</span>
         |
         <span class="cm1-current-footprint">Current footprint: #{rate}lbs CO<sub>2</sub>e/min</span>
       </p>
@@ -41,7 +41,7 @@ module TronprintHelper
 
   # A link to more information about Tronprint
   def tronprint_badge
-    '<p class="cm1-tronprint-link">Footprint calculated by <a href="http://brighterplanet.github.com/tronprint">Tronprint</a></p>'.html_safe
+    %q{<p class="cm1-tronprint-link">Site footprint calculated by <a href="http://brighterplanet.github.com/tronprint">Tronprint</a></p>}.html_safe
   end
 
   # Let the world know that your app is powered by CM1

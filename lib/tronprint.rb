@@ -5,7 +5,7 @@ require 'tronprint/cpu_monitor'
 require 'tronprint/traffic_monitor'
 require 'tronprint/statistics'
 
-if defined?(Rails)
+if defined?(Rails) && Rails.const_defined?('Railtie')
   require 'tronprint/rails'
 end
 
