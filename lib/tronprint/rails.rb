@@ -1,4 +1,5 @@
 require 'rails'
+require 'tronprint'
 require 'tronprint/rails/tronprint_helper'
 require 'tronprint/app'
 
