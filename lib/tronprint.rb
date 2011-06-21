@@ -32,7 +32,19 @@ module Tronprint
 
   # Options to send the aggregator. See Tronprint::Aggregator.new
   def aggregator_options
-    @aggregator_options ||= config[:aggregator_options]
+    if @aggregator_options.nil?
+      @aggregator_options = config[:aggregator_options]
+      @aggregator_options = @aggregator_options[env] if env && @aggregator_options[env]
+    end
+    @aggregator_options
+  end
+
+  def env
+    @env ||= if defined?(Rails)
+      Rails.env.to_sym
+    elsif ENV['RACK_ENV']
+      ENV['RACK_ENV'].to_sym
+    end
   end
 
   # The zip code of the server's hosting location. This affects 

@@ -1,11 +1,13 @@
 require 'spec_helper'
 
+class Rails
+  def self.env
+    'development'
+  end
+end
+
 describe Tronprint do
   let(:mock_cpu) { mock Tronprint::CPUMonitor, :total_recorded_cpu_time => 27.2 }
-  
-  before do
-    Tronprint.aggregator_options[:adapter] = :memory
-  end
 
   describe '.run' do
     it 'starts up each monitor' do
@@ -84,6 +86,46 @@ describe Tronprint do
       ENV['MONGOHQ_URL'] = 'mongodb://foo.com/bar'
       Tronprint.default_config[:aggregator_options][:adapter].should == :mongodb
       Tronprint.default_config[:aggregator_options][:uri].should == 'mongodb://foo.com/bar'
+    end
+  end
+
+  describe '.aggregator_options' do
+    before :each do
+      ENV['MONGOHQ_URL'] = nil
+      Tronprint.config = nil
+      Tronprint.instance_variable_set :@aggregator_options, nil
+    end
+    it 'loads default aggregator options' do
+      Tronprint.aggregator_options.should == Tronprint.default_config[:aggregator_options]
+    end
+    it 'loads custom aggregator options' do
+      Tronprint.config = {
+        :aggregator_options => { :uri => 'foo' }
+      }
+      Tronprint.aggregator_options[:uri].should == 'foo'
+    end
+    it 'loads options for the current Rails environment' do
+      Tronprint.config = {
+        :aggregator_options => { 
+          :production => {
+            :uri => 'production_uri'
+          },
+          :development => {
+            :uri => 'development_uri'
+          }
+        }
+      }
+      Tronprint.aggregator_options[:uri].should == 'development_uri'
+    end
+    it 'loads default configs if one environment is configured, but current is not' do
+      Tronprint.config = {
+        :aggregator_options => { 
+          :production => {
+            :uri => 'production_uri'
+          }
+        }
+      }
+      Tronprint.aggregator_options[:uri].should be_nil
     end
   end
 end
