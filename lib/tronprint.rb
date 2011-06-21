@@ -80,7 +80,7 @@ module Tronprint
 
   # The Tronprint::Aggregator instance.
   def aggregator
-    @aggregator ||= Aggregator.new aggregator_options
+    @aggregator ||= Aggregator.new aggregator_options.dup
   end
 
   # The Tronprint::CPUMonitor instance.
@@ -100,7 +100,7 @@ module Tronprint
 
   # The current configuration.
   def config
-    default_config.update load_config
+    default_config.dup.update load_config
   end
 
   def config=(val)
