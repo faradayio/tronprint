@@ -125,7 +125,7 @@ describe Tronprint do
           }
         }
       }
-      Tronprint.aggregator_options[:uri].should be_nil
+      Tronprint.aggregator_options.should == Tronprint.default_config[:aggregator_options]
     end
   end
 end

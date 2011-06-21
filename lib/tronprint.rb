@@ -34,7 +34,9 @@ module Tronprint
   def aggregator_options
     if @aggregator_options.nil?
       @aggregator_options = config[:aggregator_options]
-      @aggregator_options = @aggregator_options[env] if env && @aggregator_options[env]
+      if env
+        @aggregator_options = @aggregator_options[env] || default_config[:aggregator_options]
+      end
     end
     @aggregator_options
   end
