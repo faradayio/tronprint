@@ -1,3 +1,5 @@
+require 'tronprint'
+
 module Tronprint
   class App
     def initialize(app)
