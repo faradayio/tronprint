@@ -140,4 +140,22 @@ module Tronprint
     }
     @default_config
   end
+
+  def logger
+    return @logger unless @logger.nil?
+    if config[:log] && defined?(Rails)
+      @logger = Rails.logger
+    end
+    @logger
+  end
+  def logger=(val)
+    @logger = val
+  end
+
+  def log_debug(message)
+    logger.debug message if logger
+  end
+  def log_info(message)
+    logger.info message if logger
+  end
 end

@@ -135,6 +135,7 @@ module Tronprint
     def update_entry(key, value)
       old_value = self[key]
       new_value = old_value ? old_value + value : value
+      Tronprint.log_debug "Tronprint.aggregator[#{key.inspect}] = #{new_value}"
       self[key] = new_value
     end
   end
