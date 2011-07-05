@@ -20,7 +20,7 @@ module TronprintHelper
   end
 
   # An informational badge displaying total energy, footprint, CO2/minute
-  def footprint_badge
+  def footprint_badge(options = {})
     footprint = pounds_with_precision total_estimate
 
     two_hr_emissions = Tronprint.statistics.
@@ -29,19 +29,35 @@ module TronprintHelper
     rate = rate < 0.0001 ? "< 0.0001" : pounds_with_precision(rate)
 
     text = <<-HTML
-      <p class="cm1-footprint">
-        <span class="cm1-total-footprint">Total site footprint: #{total_electricity.to_i}W, #{footprint}lbs CO<sub>2</sub>e</span>
-        |
-        <span class="cm1-current-footprint">Current footprint: #{rate}lbs CO<sub>2</sub>e/min</span>
+      <p class="tronprint-footprint">
+        <span class="tronprint-total-footprint">
+          <span class="tronprint-label">Total app footprint:</span>
+          <span class="tronprint-value">#{total_electricity.to_i}</span>
+          <span class="tronprint-units">W</span>,
+          <span class="tronprint-value">#{footprint}</span>
+          <span class="tronprint-units">lbs. CO<sub>2</sub>e</span>
+        </span>
+        <span class="tronprint-separator">&middot;</span>
+        <span class="tronprint-current-footprint">
+          <span class="tronprint-label">Current footprint:</span>
+          <span class="tronprint-value">#{rate}</span>
+          <span class="tronprint-units">lbs. CO<sub>2</sub>e/min.</span>
+        </span>
+        <span class="tronprint-attribution">#{tronprint_attribution if options[:attribution]}</span>
       </p>
     HTML
 
     text.html_safe
   end
+  
+  # Tronprint attribution
+  def tronprint_attribution
+    %q{App footprint calculated by <a href="http://brighterplanet.github.com/tronprint">Tronprint</a>}
+  end
 
   # A link to more information about Tronprint
   def tronprint_badge
-    %q{<p class="cm1-tronprint-link">Site footprint calculated by <a href="http://brighterplanet.github.com/tronprint">Tronprint</a></p>}.html_safe
+    %Q{<p class="tronprint-link"><%= tronprint_attribution %></p>}.html_safe
   end
 
   # Let the world know that your app is powered by CM1
