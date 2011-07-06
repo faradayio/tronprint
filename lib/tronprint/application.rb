@@ -8,7 +8,7 @@ module Tronprint
     include Carbon
 
     emit_as :computation do
-      provide :duration    # hours
+      provide :duration    # seconds
       provide :zip_code
     end
 

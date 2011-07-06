@@ -34,11 +34,11 @@ describe Tronprint::Statistics do
   end
 
   describe '#total_duration' do
-    it 'looks up the total for the application and return number of hours' do
+    it 'looks up the total for the application and return number of seconds' do
       mock_cpu = mock Tronprint::CPUMonitor, :key => 'groove/application/cpu_time'
       statistics.instance_variable_set :@cpu_monitor, mock_cpu
       statistics.aggregator.update 'groove/application/cpu_time', 5.0
-      statistics.total_duration.should be_within(0.00001).of(0.00138)
+      statistics.total_duration.should be_within(0.1).of(5.0)
     end
   end
 end

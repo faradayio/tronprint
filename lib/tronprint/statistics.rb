@@ -10,12 +10,12 @@ module Tronprint
       self.cpu_monitor = cpu_monitor
     end
 
-    # Fetch the total amount of CPU time (in hours) used by the application.
+    # Fetch the total CPU time (in seconds) used by the application.
     def total_duration
-      aggregator[cpu_monitor.key] / 3600
+      aggregator[cpu_monitor.key]
     end
 
-    # Fetch total CPU time for a given range
+    # Fetch total CPU time (in seconds) for a given range
     def range_duration(from, to)
       aggregator.range_total cpu_monitor.key, from, to
     end
