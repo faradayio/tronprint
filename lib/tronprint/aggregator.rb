@@ -21,6 +21,9 @@ module Tronprint
       self.adapter = options.delete :adapter
       self.adapter ||= 'pstore'
       self.adapter = self.adapter.to_s.downcase
+
+      options = process_options(options)
+
       begin
         require "moneta/#{self.adapter}"
         klass = Moneta.const_get adapter_constant
@@ -32,6 +35,14 @@ module Tronprint
       instance = klass.new(*args)
       __setobj__ instance  # required in Ruby 1.8.7
       super instance
+    end
+
+    # Handle initializer options for some special cases
+    def process_options(options)
+      if adapter == 'mongodb'
+        options[:pool_size] = 3
+      end
+      options
     end
 
     def __getobj__ # :nodoc:

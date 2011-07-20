@@ -73,6 +73,14 @@ describe Tronprint::Aggregator do
     end
   end
 
+  describe '#process_options' do
+    it 'sets a pool size if the adapter is mongodb' do
+      aggregator.adapter = 'mongodb'
+      options = aggregator.process_options :hostname => 'example.com'
+      options[:pool_size].should > 1
+    end
+  end
+
   describe '#update_entry' do
     it 'logs any connection errors' do
       aggregator.stub!(:[]).and_raise StandardError
