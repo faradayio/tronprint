@@ -158,4 +158,7 @@ module Tronprint
   def log_info(message)
     logger.info message if logger
   end
+  def log_error(message)
+    logger.error message if logger
+  end
 end

@@ -73,6 +73,14 @@ describe Tronprint::Aggregator do
     end
   end
 
+  describe '#update_entry' do
+    it 'logs any connection errors' do
+      aggregator.stub!(:[]).and_raise StandardError
+      Tronprint.should_receive(:log_error).once
+      aggregator.send :update_entry, 'foo', 77
+    end
+  end
+
   describe '#range_total' do
     before :each do
       [
