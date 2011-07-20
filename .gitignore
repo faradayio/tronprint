@@ -21,3 +21,5 @@ pkg
 ## PROJECT::SPECIFIC
 Gemfile.lock
 _site
+
+bin
