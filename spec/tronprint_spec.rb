@@ -89,6 +89,25 @@ describe Tronprint do
     end
   end
 
+  describe '.aggregator' do
+    it 'returns an aggregator' do
+      Tronprint.aggregator.should be_a(Tronprint::Aggregator)
+    end
+    context 'when the aggregator fails to load a datastore' do
+      before :each do
+        Tronprint::Aggregator.stub!(:new).and_raise(StandardError)
+        Tronprint.instance_variable_set :@aggregator, nil
+      end
+      it 'logs an error' do
+        Tronprint.should_receive :log_error
+        Tronprint.aggregator
+      end
+      it 'returns nil' do
+        Tronprint.aggregator.should be_nil
+      end
+    end
+  end
+
   describe '.aggregator_options' do
     before :each do
       ENV['MONGOHQ_URL'] = nil

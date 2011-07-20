@@ -82,7 +82,15 @@ module Tronprint
 
   # The Tronprint::Aggregator instance.
   def aggregator
-    @aggregator ||= Aggregator.new aggregator_options.dup
+    return @aggregator unless @aggregator.nil?
+    begin
+      @aggregator = Aggregator.new aggregator_options.dup
+    rescue => e
+      backtrace = ([e] + e.backtrace).join("\n")
+      log_error "Failed to connect to aggregator: #{backtrace}"
+      @aggregator = nil
+    end
+    @aggregator
   end
 
   # The Tronprint::CPUMonitor instance.
@@ -92,7 +100,7 @@ module Tronprint
 
   # The Tronprint::TrafficMonitor instance
   def traffic_monitor
-    @traffic_monitor ||= TrafficMonitor.new aggregator, application_name
+    @traffic_monitor ||= TrafficMonitor.new application_name
   end
 
   # The Tronprint::Statistics interface

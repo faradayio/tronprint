@@ -6,6 +6,27 @@ describe Tronprint::CPUMonitor do
 
   before :each do
     Tronprint.stub!(:aggregator).and_return aggregator
+    cpu_monitor.run_continuously = false
+  end
+
+  describe '#thread_loop' do
+    it 'monitors CPU usage' do
+      cpu_monitor.should_receive :monitor
+      cpu_monitor.thread_loop
+    end
+    it 'does not monitor if no aggregator is available' do
+      cpu_monitor.should_not_receive :monitor
+      Tronprint.stub!(:aggregator)
+      cpu_monitor.thread_loop
+    end
+    it 'eventually monitors when it can connect to an aggregator' do
+      cpu_monitor.stub!(:sleep)
+      cpu_monitor.stub!(:run_continuously?).and_return(true, true, true, true, true, false)
+      Tronprint.stub!(:aggregator).and_return(nil, nil, aggregator)
+
+      cpu_monitor.should_receive :monitor
+      cpu_monitor.thread_loop
+    end
   end
 
   describe '#monitor' do

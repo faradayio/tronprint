@@ -2,7 +2,7 @@ module Tronprint
 
   # Tronprint::CPUMonitor is a thread that monitors aggregate CPU usage.
   class CPUMonitor < Thread
-    attr_accessor :total_recorded_cpu_time, :application_name
+    attr_accessor :total_recorded_cpu_time, :application_name, :run_continuously
 
     # Parameters:
     # +application_name+:: A unique application name.
@@ -12,19 +12,26 @@ module Tronprint
       self.application_name = application_name
       options[:run] = true if options[:run].nil?
       if options[:run]
-        super &thread_loop
+        super &method(:thread_loop)
       else
         super() {}  # Ruby 1.8 hack
       end
     end
 
+    def run_continuously?
+      @run_continuously = true if @run_continuously.nil?
+      @run_continuously
+    end
+
+    # The main thread loop, monitors CPU usage every 5 seconds if
+    # a connection to the aggregator is available
     def thread_loop
-      lambda do
-        while(true) do
-         monitor
-         sleep(5)
-        end
-      end
+      first_run = true
+      begin
+        monitor if aggregator
+        sleep(5) if run_continuously?
+        first_run = false
+      end while(first_run or run_continuously?)
     end
 
     # The key used to store CPU data in the Aggregator.
