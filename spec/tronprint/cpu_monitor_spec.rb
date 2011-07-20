@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe Tronprint::CPUMonitor do
   let(:aggregator) { Tronprint::Aggregator.new :adapter => :memory }
-  let(:cpu_monitor) { Tronprint::CPUMonitor.new aggregator, 'my_app', :run => false }
+  let(:cpu_monitor) { Tronprint::CPUMonitor.new 'my_app', :run => false }
+
+  before :each do
+    Tronprint.stub!(:aggregator).and_return aggregator
+  end
 
   describe '#monitor' do
     before :each do

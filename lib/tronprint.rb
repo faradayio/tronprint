@@ -87,7 +87,7 @@ module Tronprint
 
   # The Tronprint::CPUMonitor instance.
   def cpu_monitor
-    @cpu_monitor ||= CPUMonitor.new aggregator, application_name
+    @cpu_monitor ||= CPUMonitor.new application_name
   end
 
   # The Tronprint::TrafficMonitor instance

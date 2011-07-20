@@ -2,15 +2,13 @@ module Tronprint
 
   # Tronprint::CPUMonitor is a thread that monitors aggregate CPU usage.
   class CPUMonitor < Thread
-    attr_accessor :total_recorded_cpu_time, :aggregator, :application_name
+    attr_accessor :total_recorded_cpu_time, :application_name
 
     # Parameters:
-    # +aggregator+:: A Tronprint::Aggregator instance.
     # +application_name+:: A unique application name.
     # +options+:: Extra options, such as:
     # --+run+:: Whether to fork the thread and run continuously. +true+ by default.
-    def initialize(aggregator, application_name, options = {})
-      self.aggregator = aggregator
+    def initialize(application_name, options = {})
       self.application_name = application_name
       options[:run] = true if options[:run].nil?
       if options[:run]
@@ -28,6 +26,10 @@ module Tronprint
     # The key used to store CPU data in the Aggregator.
     def key
       [application_name, 'application', 'cpu_time'].join('/')
+    end
+
+    def aggregator
+      Tronprint.aggregator
     end
 
     # The process used to collect CPU uptime data and store it.
