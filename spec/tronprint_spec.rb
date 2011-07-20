@@ -37,6 +37,12 @@ describe Tronprint do
     end
   end
 
+  describe '.traffic_monitor' do
+    it 'returns a traffic monitor' do
+      Tronprint.traffic_monitor.should be_a(Tronprint::TrafficMonitor)
+    end
+  end
+
   describe '.config' do
     it 'returns a configuration loaded from disk' do
       Tronprint.stub!(:load_config).and_return :foo => :bar
