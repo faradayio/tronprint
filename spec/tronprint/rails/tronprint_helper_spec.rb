@@ -14,5 +14,19 @@ describe TronprintHelper do
       helper.total_footprint.should == 89.4
     end
   end
+
+  describe '#footprint_badge' do
+    it 'outputs a badge' do
+      helper.stub!(:pounds_with_precision).and_return "100.0"
+      helper.stub!(:total_estimate).and_return 100.0
+      Tronprint.statistics.stub!(:emission_estimate).and_return 100.0
+      helper.stub!(:total_electricity).and_return 20
+      helper.footprint_badge.should =~ /Total app footprint/
+    end
+    it 'gracefully handles lost aggregator connections' do
+      helper.stub!(:total_estimate).and_raise StandardError
+      helper.footprint_badge.should =~ /App footprint unavailable/
+    end
+  end
 end
 
