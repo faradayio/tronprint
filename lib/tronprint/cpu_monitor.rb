@@ -12,14 +12,18 @@ module Tronprint
       self.application_name = application_name
       options[:run] = true if options[:run].nil?
       if options[:run]
-        super do
-          while(true) do
-           monitor
-           sleep(5)
-          end
-        end
+        super &thread_loop
       else
         super() {}  # Ruby 1.8 hack
+      end
+    end
+
+    def thread_loop
+      lambda do
+        while(true) do
+         monitor
+         sleep(5)
+        end
       end
     end
 
