@@ -1,6 +1,6 @@
 module Tronprint
 
-  # Tronprint::CPUMonitor is a thread that monitors aggregate CPU usage.
+  # Tronprint::TrafficMonitor is a middleware that counts requests
   class TrafficMonitor
     attr_accessor :aggregator, :application_name
 
