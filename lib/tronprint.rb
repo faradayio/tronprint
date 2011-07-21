@@ -100,7 +100,7 @@ module Tronprint
 
   # The Tronprint::TrafficMonitor instance
   def traffic_monitor
-    @traffic_monitor ||= TrafficMonitor.new aggregator, application_name
+    @traffic_monitor ||= TrafficMonitor.new application_name
   end
 
   # The Tronprint::Statistics interface

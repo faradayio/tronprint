@@ -1,6 +1,8 @@
 require 'tronprint'
 
 module Tronprint
+  
+  # App is a middleware that counts app requests
   class App
     def initialize(app)
       @app = app

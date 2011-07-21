@@ -1,15 +1,17 @@
 module Tronprint
 
-  # Tronprint::TrafficMonitor is a middleware that counts requests
+  # Tronprint::TrafficMonitor counts app requests
   class TrafficMonitor
     attr_accessor :aggregator, :application_name
 
     # Parameters:
-    # +aggregator+:: A Tronprint::Aggregator instance.
     # +application_name+:: A unique application name.
-    def initialize(aggregator, application_name)
-      self.aggregator = aggregator
+    def initialize(application_name)
       self.application_name = application_name
+    end
+
+    def aggregator
+      Tronprint.aggregator
     end
 
     # The key used to store number of requests in the Aggregator.
@@ -19,7 +21,7 @@ module Tronprint
 
     # Increment the total number of requests
     def increment
-      aggregator.update key, 1
+      aggregator.update key, 1 if aggregator
     end
 
     def requests

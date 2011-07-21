@@ -3,7 +3,11 @@ require 'timecop'
 
 describe Tronprint::TrafficMonitor do
   let(:aggregator) { Tronprint::Aggregator.new :adapter => :memory }
-  let(:traffic_monitor) { Tronprint::TrafficMonitor.new aggregator, 'my_app' }
+  let(:traffic_monitor) { Tronprint::TrafficMonitor.new 'my_app' }
+
+  before :each do
+    traffic_monitor.stub!(:aggregator).and_return(aggregator)
+  end
 
   describe '#increment' do
     it 'increments the user count for each time slice' do
@@ -22,6 +26,12 @@ describe Tronprint::TrafficMonitor do
       traffic_monitor.requests.should == 1
       traffic_monitor.increment
       traffic_monitor.requests.should == 2
+    end
+    it 'does nothing if no aggregator is available' do
+      traffic_monitor.stub!(:aggregator)
+      expect do
+        traffic_monitor.increment
+      end.should_not raise_error
     end
   end
 
