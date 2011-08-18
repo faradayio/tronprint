@@ -9,7 +9,7 @@ module Tronprint
     end
 
     def call(env)
-      Tronprint.traffic_monitor.increment
+      Tronprint.traffic_monitor.increment if Tronprint.connected?
 
       @app.call(env)
     end

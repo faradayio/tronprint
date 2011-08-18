@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'tronprint/rails/tronprint_helper'
+require 'timeout'
 
 describe TronprintHelper do
   let :helper do
@@ -24,7 +25,8 @@ describe TronprintHelper do
       helper.footprint_badge.should =~ /Total app footprint/
     end
     it 'gracefully handles lost aggregator connections' do
-      helper.stub!(:total_estimate).and_raise StandardError
+      module Mongo; class OperationTimeout < Timeout::Error; end; end
+      helper.stub!(:total_estimate).and_raise Mongo::OperationTimeout
       helper.footprint_badge.should =~ /App footprint unavailable/
     end
   end

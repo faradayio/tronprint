@@ -1,4 +1,5 @@
 require 'tronprint/statistics_formatter'
+require 'timeout'
 
 # Rails helper for displaying footprint data.
 module TronprintHelper
@@ -21,37 +22,42 @@ module TronprintHelper
 
   # An informational badge displaying total energy, footprint, CO2/minute
   def footprint_badge(options = {})
-    begin
-      footprint = pounds_with_precision total_estimate
+    text = nil
+    if Tronprint.connected?
+      begin
+        footprint = pounds_with_precision total_estimate
 
-      two_hr_emissions = Tronprint.statistics.
-        emission_estimate(Time.now - 7200, Time.now).to_f
-      rate = two_hr_emissions / 120  # kgs CO2 per minute over last 2 hours
-      rate = rate < 0.0001 ? "< 0.0001" : pounds_with_precision(rate)
+        two_hr_emissions = Tronprint.statistics.
+          emission_estimate(Time.now - 7200, Time.now).to_f
+        rate = two_hr_emissions / 120  # kgs CO2 per minute over last 2 hours
+        rate = rate < 0.0001 ? "< 0.0001" : pounds_with_precision(rate)
 
-      text = <<-HTML
-        <p class="tronprint-footprint">
-          <span class="tronprint-total-footprint">
-            <span class="tronprint-label">Total app footprint:</span>
-            <span class="tronprint-value">#{total_electricity.to_i}</span>
-            <span class="tronprint-units">W</span>,
-            <span class="tronprint-value">#{footprint}</span>
-            <span class="tronprint-units">lbs. CO<sub>2</sub>e</span>
-          </span>
-          <span class="tronprint-separator">&middot;</span>
-          <span class="tronprint-current-footprint">
-            <span class="tronprint-label">Current footprint:</span>
-            <span class="tronprint-value">#{rate}</span>
-            <span class="tronprint-units">lbs. CO<sub>2</sub>e/min.</span>
-          </span>
-          <span class="tronprint-attribution">#{tronprint_attribution if options[:attribution]}</span>
-        </p>
-      HTML
-    rescue => e
-      text = <<-HTML
-        <p class="tronprint-footprint">App footprint unavailable</p>
-      HTML
+        text = <<-HTML
+          <p class="tronprint-footprint">
+            <span class="tronprint-total-footprint">
+              <span class="tronprint-label">Total app footprint:</span>
+              <span class="tronprint-value">#{total_electricity.to_i}</span>
+              <span class="tronprint-units">W</span>,
+              <span class="tronprint-value">#{footprint}</span>
+              <span class="tronprint-units">lbs. CO<sub>2</sub>e</span>
+            </span>
+            <span class="tronprint-separator">&middot;</span>
+            <span class="tronprint-current-footprint">
+              <span class="tronprint-label">Current footprint:</span>
+              <span class="tronprint-value">#{rate}</span>
+              <span class="tronprint-units">lbs. CO<sub>2</sub>e/min.</span>
+            </span>
+            <span class="tronprint-attribution">#{tronprint_attribution if options[:attribution]}</span>
+          </p>
+        HTML
+      rescue Timeout::Error => e
+      rescue => e
+      end
     end
+
+    text ||= <<-HTML
+      <p class="tronprint-footprint">App footprint unavailable</p>
+    HTML
 
     text.html_safe
   end

@@ -80,6 +80,11 @@ module Tronprint
     !@cpu_monitor.nil?
   end
 
+  # Check whether an aggregator is connected
+  def connected?
+    !@aggregator.nil?
+  end
+
   # The Tronprint::Aggregator instance.
   def aggregator
     return @aggregator unless @aggregator.nil?

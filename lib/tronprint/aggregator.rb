@@ -41,6 +41,8 @@ module Tronprint
     def process_options(options)
       if adapter == 'mongodb'
         options[:pool_size] = 3
+        options[:timeout] = 15
+        options[:op_timeout] = 10
       end
       options
     end
