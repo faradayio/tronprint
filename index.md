@@ -4,7 +4,10 @@ layout: default
 
 # What is Tronprint?
 
-[Tronprint](http://github.com/brighterplanet/tronprint) calculates the carbon footprint of a host Ruby application in real-time, *as it's running*.
+<p>
+  <div class="brighter_planet_cm1_badge"><p><a href="http://brighterplanet.com"><span class="setup">Powered by</span> <span class="punchline">Brighter Planet</span></a></p></div>
+  <a href="http://github.com/brighterplanet/tronprint">Tronprint</a> calculates the carbon footprint of a host Ruby application in real-time, <em>as it's running</em>.
+</p>
 
 ## Why is this important?
 
