@@ -74,7 +74,7 @@ module TronprintHelper
 
   # Let the world know that your app is powered by CM1
   def cm1_badge
-    %q{<script type="text/javascript" src="http://carbon.brighterplanet.com/badge.js"></script>}.
+    %q{<script type="text/javascript" src="http://impact.brighterplanet.com/badge.js"></script>}.
       html_safe
   end
   

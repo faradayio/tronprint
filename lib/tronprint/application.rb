@@ -7,26 +7,34 @@ module Tronprint
   class Application
     include Carbon
 
-    emit_as :computation do
+    emit_as 'Computation' do
       provide :duration    # seconds
       provide :zip_code
     end
 
-    attr_accessor :duration, :zip_code, :brighter_planet_key
+    attr_reader :duration, :zip_code, :brighter_planet_key
 
     # Initialize using Rails' model initializer style.
     #
     #   Tronprint::Application.new :duration => 3.0
     def initialize(attrs = {})
-      attrs.each do |name, value|
-        self.send("#{name}=", value)
-      end
+      @duration = attrs[:duration]
+      @zip_code = attrs[:zip_code]
+      @brighter_planet_key = attrs[:brighter_planet_key]
     end
 
     # The options accepted are those accepted by 
-    # {Carbon::EmissionEstimate}[http://rdoc.info/github/brighterplanet/carbon/master/Carbon#emission_estimate-instance_method]
+    # {Carbon#impact method}[http://rdoc.info/github/brighterplanet/carbon/Carbon#impact-instance_method]
+    def impact(options = {})
+      if (response = impact(options.merge(:key => brighter_planet_key))).success
+        response
+      end
+    end
+
     def emission_estimate(options = {})
-      super options.merge(:key => brighter_planet_key)
+      if response = impact(options)
+        response.decisions.carbon.object.value
+      end
     end
   end
 end

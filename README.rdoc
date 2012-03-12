@@ -11,16 +11,15 @@ Tronprint helps you visualize the carbon footprint of all of those little
 Ruby processes zooming around on your system in their light cycles. You 
 can then show this footprint to the world of the Users via Rails helpers.
 
-The emission estimates are calculated using {CM1}[http://carbon.brighterplanet.com],
-{Brighter Planet's}[http://brighterplanet.com] carbon emissions calculation service.
-Specifically, the {computation emitter}[http://carbon.brighterplanet.com/models/computation] 
+The emission estimates are calculated using {Brighter Planet CM1}[http://impact.brighterplanet.com], the impact estimate web service from {Brighter Planet}[http://brighterplanet.com].
+Specifically, the {computation emitter}[http://impact.brighterplanet.com/models/computation] 
 is used.
 
 == Getting Started
 
 If you haven't already, go to http://keys.brighterplanet.com and sign up for an
 API key. Non-commercial use of CM1 is free, but commercial use is 
-{charged}[http://carbon.brighterplanet.com/pricing] per-query. Heroku users are 
+{charged}[http://impact.brighterplanet.com/pricing] per-query. Heroku users are 
 charged per-month.
 
 === Rails
@@ -55,7 +54,7 @@ TronprintHelper comes with a few helper methods:
 
 * footprint_badge - A badge that displays total footprint and current rate of emissions for your app.
 * cm1_badge - Displays a CM1 badge
-* footprint_methodology - A URL for a live methodology statement reporting how your total footprint was calculated. {Example}[http://carbon.brighterplanet.com/computations?duration=128372]
+* footprint_methodology - A URL for a live methodology statement reporting how your total footprint was calculated. {Example}[http://impact.brighterplanet.com/computations?duration=128372]
 
 ==== Heroku
 
@@ -103,11 +102,9 @@ When your application has started, all you have to do is make a call to
 Tronprint.run. This starts up a thread that collects statistics at a 
 certain interval and stores the results in a key/value store.
 
-To retrieve the footprint, make a call to Tronprint.statistics.emission_estimate. This 
-returns an instance of {Carbon::EmissionEstimate}[http://rubydoc.info/gems/carbon/Carbon/EmissionEstimate].
-It can be converted to a float for the amount in kilograms or other 
-methods, such as EmissionEstimate#methodology can provide a link to the 
-methodology statement used to derive the estimate.
+To retrieve the footprint, make a call to Tronprint.statistics.emission_estimate.
+
+You can also call Tronprint.statistics.impact. This returns a +Hashie::Mash+ per {the carbon gem RDoc}[http://rdoc.info/github/brighterplanet/carbon].
 
 == Configuration
 

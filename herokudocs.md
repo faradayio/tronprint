@@ -39,7 +39,7 @@ TronprintHelper comes with a few helper methods:
 
 * `footprint_badge` - A badge that displays total footprint and current rate of emissions for your app.
 * `cm1_badge` - Displays a CM1 badge
-* `footprint_methodology` - A URL for a live methodology statement reporting how your total footprint was calculated. {Example}[http://carbon.brighterplanet.com/computations?duration=128372]
+* `footprint_methodology` - A URL for a live methodology statement reporting how your total footprint was calculated. {Example}[http://impact.brighterplanet.com/computations?duration=128372]
 
 ### Rails with ActiveRecord
 

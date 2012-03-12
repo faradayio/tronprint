@@ -21,14 +21,14 @@ describe Tronprint::Statistics do
       statistics.stub!(:total_duration).and_return 28.7
       Tronprint::Application.should_receive(:new).
         with(:zip_code => 48915, :duration => 28.7, :brighter_planet_key => 'ABC123').
-        and_return mock(Object, :emission_estimate => nil)
+        and_return mock(Object, :impact => nil)
       statistics.emission_estimate
     end
     it 'sends a duration range if given' do
       statistics.stub!(:range_duration).and_return 18.7
       Tronprint::Application.should_receive(:new).
         with(:zip_code => 48915, :duration => 18.7, :brighter_planet_key => 'ABC123').
-        and_return mock(Object, :emission_estimate => nil)
+        and_return mock(Object, :impact => nil)
       statistics.emission_estimate(Time.now - 7200, Time.now)
     end
   end
