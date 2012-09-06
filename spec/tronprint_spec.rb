@@ -97,6 +97,9 @@ describe Tronprint do
 
   describe '.aggregator' do
     it 'returns an aggregator' do
+      Tronprint.default_config[:aggregator_options] = {
+        :adapter => :YAML, :path => File.expand_path('tronprint_stats.yml', Dir.pwd)
+      }
       Tronprint.aggregator.should be_a(Tronprint::Aggregator)
     end
     context 'when the aggregator fails to load a datastore' do
