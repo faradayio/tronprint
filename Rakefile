@@ -1,6 +1,4 @@
-require 'rubygems'
-require 'bundler'
-Bundler.setup
+require 'bundler/setup'
 
 begin
   require 'bueller'
@@ -22,15 +20,3 @@ end
 
 task :test => :examples
 task :default => :test
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.main = 'README.rdoc'
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "tronprint #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('LICENSE')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
