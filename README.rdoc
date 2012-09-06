@@ -15,6 +15,8 @@ The emission estimates are calculated using {Brighter Planet CM1}[http://impact.
 Specifically, the {computation emitter}[http://impact.brighterplanet.com/models/computation] 
 is used.
 
+{<img src="https://secure.travis-ci.org/brighterplanet/tronprint.png" />}[http://travis-ci.org/brighterplanet/tronprint]
+
 == Getting Started
 
 If you haven't already, go to http://keys.brighterplanet.com and sign up for an
